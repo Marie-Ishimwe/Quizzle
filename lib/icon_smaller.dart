@@ -22,8 +22,8 @@ class SmallerFaIconButton extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: 45,
-            height: 45,
+            width: 40,
+            height: 40,
             decoration: const ShapeDecoration(
               color: Color(0xFFFDFDFC),
               shape: OvalBorder(),
@@ -45,8 +45,8 @@ class SmallerFaIconButton extends StatelessWidget {
             right: 2.5,
             bottom: 2,
             child: Container(
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               decoration: ShapeDecoration(
                 color: buttonColor,
                 shape: const OvalBorder(),

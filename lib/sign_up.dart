@@ -5,7 +5,6 @@ import 'package:quizzle/icon_button.dart';
 import 'package:quizzle/nickname.dart';
 import 'package:quizzle/orange_btn.dart';
 import 'package:quizzle/sign_in.dart';
-import 'package:quizzle/splash_screen.dart';
 import 'package:quizzle/start_screen.dart';
 
 class SignUp extends StatefulWidget {
