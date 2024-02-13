@@ -19,8 +19,12 @@ class _ArenaState extends State<Arena> {
             const Size.fromHeight(80), // Set the total height of the AppBar
         child: Container(
           margin: const EdgeInsets.only(
-              top: 5, left: 5), // Adjust the margin values as needed
+            top: 5,
+            left: 10,
+          ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: const EdgeInsets.all(2.0),
@@ -30,13 +34,13 @@ class _ArenaState extends State<Arena> {
                 ),
               ),
               SizedBox(
-                width: 150,
-                height: 60,
+                width: 90,
+                height: 55,
                 child: Stack(
                   children: [
                     Positioned(
                       top: 10,
-                      left: 50,
+                      left: 15,
                       child: Container(
                         width: 75,
                         height: 40,
@@ -84,11 +88,11 @@ class _ArenaState extends State<Arena> {
                       ),
                     ),
                     Positioned(
-                      left: 30,
+                      left: 0,
                       top: 9,
                       child: Container(
-                        width: 51.27,
-                        height: 45.74,
+                        width: 50,
+                        height: 45.0,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('images/heart.png'),
@@ -101,13 +105,13 @@ class _ArenaState extends State<Arena> {
                 ),
               ),
               SizedBox(
-                width: 150,
-                height: 60,
+                width: 120,
+                height: 55,
                 child: Stack(
                   children: [
                     Positioned(
                       top: 10,
-                      left: 50,
+                      left: 20,
                       child: Container(
                         width: 95,
                         height: 40,
@@ -155,10 +159,10 @@ class _ArenaState extends State<Arena> {
                       ),
                     ),
                     Positioned(
-                      left: 28,
+                      left: -2,
                       top: 4.5,
                       child: Container(
-                        width: 57.27,
+                        width: 58.27,
                         height: 52.74,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
@@ -173,15 +177,15 @@ class _ArenaState extends State<Arena> {
               ),
               // *********coins
               SizedBox(
-                width: 150,
-                height: 60,
+                width: 125,
+                height: 55,
                 child: Stack(
                   children: [
                     Positioned(
                       top: 10,
-                      left: 50,
+                      left: 15,
                       child: Container(
-                        width: 95,
+                        width: 110,
                         height: 40,
                         decoration: const ShapeDecoration(
                           color: Color(0xFFFDFDFC),
@@ -211,7 +215,7 @@ class _ArenaState extends State<Arena> {
                           child: Padding(
                             padding: EdgeInsets.only(left: 20.0),
                             child: Text(
-                              '500',
+                              '50000',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color(0xFFF88F1E),
@@ -219,7 +223,7 @@ class _ArenaState extends State<Arena> {
                                 fontFamily: 'StudioFeixenSansTRIAL',
                                 // fontWeight: FontWeight.w800,
                                 height: 0.06,
-                                letterSpacing: 1,
+                                letterSpacing: 0.5,
                               ),
                             ),
                           ),
@@ -227,11 +231,11 @@ class _ArenaState extends State<Arena> {
                       ),
                     ),
                     Positioned(
-                      left: 28,
-                      top: 4.5,
+                      left: 0,
+                      top: 7.5,
                       child: Container(
-                        width: 57.27,
-                        height: 52.74,
+                        width: 45.0,
+                        height: 45.0,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('images/coin.png'),
