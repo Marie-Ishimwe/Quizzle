@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/orange_btn.dart';
 import 'package:quizzle/splash_screen.dart';
 
@@ -169,7 +170,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const SplashScreen()));
+                                                  const Playground()));
                                     },
                                   ),
                                 ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/nickname.dart';
 import 'package:quizzle/orange_btn.dart';
-import 'package:quizzle/splash_screen.dart';
+import 'package:quizzle/sign_up.dart';
 
 class StartingScreen extends StatelessWidget {
   const StartingScreen({super.key});
@@ -63,7 +63,7 @@ class StartingScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SplashScreen()));
+                                builder: (context) => const SignUp()));
                       },
                     )
                   ],

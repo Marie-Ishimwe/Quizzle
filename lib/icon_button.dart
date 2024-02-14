@@ -30,23 +30,23 @@ class CustomFaIconButton extends StatelessWidget {
               shadows: [
                 BoxShadow(
                     color: Color(0xFFE9E6D1),
-                    offset: Offset(0, 2),
-                    spreadRadius: 2),
+                    offset: Offset(0, 1),
+                    spreadRadius: 1),
                 BoxShadow(
                     color: Color(0xFFEFEEE6),
                     offset: Offset(0, -2),
-                    spreadRadius: -2),
+                    spreadRadius: -1),
               ],
             ),
           ),
           Positioned(
             left: 3.5,
-            top: 7.5,
+            top: 6,
             right: 3.5,
-            bottom: 3,
+            bottom: 3.5,
             child: Container(
-              width: 50,
-              height: 50,
+              width: 40,
+              height: 40,
               decoration: ShapeDecoration(
                 color: buttonColor,
                 shape: const OvalBorder(),
