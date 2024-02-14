@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/orange_btn.dart';
-import 'package:quizzle/splash_screen.dart';
 
 class NicknameScreen extends StatefulWidget {
   const NicknameScreen({super.key});
