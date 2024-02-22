@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
+import 'package:quizzle/difficulty_page.dart';
 import 'package:quizzle/nickname.dart';
 import 'package:quizzle/arena.dart';
 import 'package:quizzle/sign_in.dart';
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Quizzle',
       debugShowCheckedModeBanner: false,
-      home: Playground(),
+      home: Difficultiness(),
     );
   }
 }

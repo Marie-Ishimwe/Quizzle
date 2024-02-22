@@ -25,7 +25,7 @@ class _PlaygroundState extends State<Playground> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      bottomNavigationBar: Stack(
         children: [
           pages[currentIndex],
           if (currentIndex == 0)
@@ -44,9 +44,11 @@ class _PlaygroundState extends State<Playground> {
                       fontWeight: FontWeight.normal,
                     ),
                   ),
+                  indicatorColor: Colors.transparent,
                 ),
                 child: NavigationBar(
-                  backgroundColor: Colors.transparent,
+                  // backgroundColor: Colors.transparent,
+                  backgroundColor: const Color(0xFFF88F1E),
                   // labelBehavior:
                   //     NavigationDestinationLabelBehavior.onlyShowSelected,
                   selectedIndex: currentIndex,
@@ -72,11 +74,13 @@ class _PlaygroundState extends State<Playground> {
                       ),
                       label: 'Shop',
                     ),
-                    NavigationDestination(
-                      icon: BottomNavigationIcon(
-                        iconData: FontAwesomeIcons.info,
+                    IgnorePointer(
+                      child: NavigationDestination(
+                        icon: BottomNavigationIcon(
+                          iconData: FontAwesomeIcons.info,
+                        ),
+                        label: 'About',
                       ),
-                      label: 'About',
                     ),
                   ],
                 ),
