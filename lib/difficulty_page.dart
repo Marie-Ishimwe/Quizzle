@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/icon_smaller.dart';
-import 'package:quizzle/orange_btn.dart';
+
+import 'easy_btn.dart';
+import 'medium_btn.dart';
 
 class Difficultiness extends StatelessWidget {
   const Difficultiness({
@@ -33,6 +35,7 @@ class Difficultiness extends StatelessWidget {
             ),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center, // Centering the column
             children: [
               Container(
                 height: 85,
@@ -90,46 +93,19 @@ class Difficultiness extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: const BoxDecoration(color: Colors.amber),
-                        width: 275,
-                        height: 120,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Stack(
-                            children: [
-                              CustomOrangeButton(
-                                buttonText: "Easy",
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Playground()));
-                                },
-                              ),
-                              Positioned(
-                                  top: 0,
-                                  left: 189,
-                                  child: Container(
-                                      width: 75,
-                                      height: 83,
-                                      decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'images/dog_easy.png'),
-                                            fit: BoxFit.fitWidth),
-                                      ))),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                // Added Expanded widget
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center, // Centering the column
+                    children: [
+                      CustomEasyButton(buttonText: 'Easy', onTap: () {}),
+                      CustomMediumButton(buttonText: 'Medium', onTap: () {}),
+                      CustomEasyButton(buttonText: 'Easy', onTap: () {}),
+                      CustomEasyButton(buttonText: 'Easy', onTap: () {}),
+                    ],
+                  ),
                 ),
               )
             ],

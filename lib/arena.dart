@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/Game_specials/Lives.dart';
+import 'package:quizzle/Game_specials/lives.dart';
 import 'package:quizzle/common_nouns/animal.dart';
-import 'package:quizzle/category_description.dart';
 import 'package:quizzle/Game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/common_nouns/family.dart';
