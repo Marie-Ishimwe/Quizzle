@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomMediumButton extends StatelessWidget {
+class CustomPremiumButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onTap;
 
-  const CustomMediumButton({
+  const CustomPremiumButton({
     super.key,
     required this.buttonText,
     required this.onTap,
@@ -18,7 +18,7 @@ class CustomMediumButton extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         width: size.width * 0.8,
-        height: 120,
+        height: 125,
         child: Stack(
           clipBehavior: Clip.antiAlias,
           children: [
@@ -51,22 +51,22 @@ class CustomMediumButton extends StatelessWidget {
               top: 45,
               left: 5.5,
               right: 5.5,
-              bottom: 25,
+              bottom: 30,
               child: Container(
                 width: size.width * 0.7,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF88F1E),
+                  color: const Color(0xFFD6B801),
                   borderRadius: BorderRadius.circular(25),
                   shape: BoxShape.rectangle,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 209, 120, 30),
+                      color: Color.fromARGB(255, 192, 167, 8),
                       offset: Offset(0, 3),
                       spreadRadius: 0,
                     ),
                     BoxShadow(
-                      color: Color.fromARGB(255, 232, 142, 52),
+                      color: Color.fromARGB(255, 240, 190, 26),
                       offset: Offset(0, -3),
                       spreadRadius: 0,
                     ),
@@ -90,13 +90,13 @@ class CustomMediumButton extends StatelessWidget {
             ),
             Positioned(
                 top: 0,
-                left: 10,
+                left: 200,
                 child: Container(
-                    width: 78,
-                    height: 97,
+                    width: 73,
+                    height: 100,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/quirrel.png'),
+                          image: AssetImage('images/bear-white.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

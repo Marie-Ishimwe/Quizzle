@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomMediumButton extends StatelessWidget {
+class CustomToughButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onTap;
 
-  const CustomMediumButton({
+  const CustomToughButton({
     super.key,
     required this.buttonText,
     required this.onTap,
@@ -56,17 +56,17 @@ class CustomMediumButton extends StatelessWidget {
                 width: size.width * 0.7,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF88F1E),
+                  color: const Color(0xFF4D6932),
                   borderRadius: BorderRadius.circular(25),
                   shape: BoxShape.rectangle,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 209, 120, 30),
+                      color: Color.fromARGB(255, 71, 85, 39),
                       offset: Offset(0, 3),
                       spreadRadius: 0,
                     ),
                     BoxShadow(
-                      color: Color.fromARGB(255, 232, 142, 52),
+                      color: Color.fromARGB(255, 79, 99, 50),
                       offset: Offset(0, -3),
                       spreadRadius: 0,
                     ),
@@ -89,14 +89,14 @@ class CustomMediumButton extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 0,
-                left: 10,
+                top: 12,
+                left: 5,
                 child: Container(
-                    width: 78,
-                    height: 97,
+                    width: 85,
+                    height: 93,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/quirrel.png'),
+                          image: AssetImage('images/dolphin.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

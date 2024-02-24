@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomMediumButton extends StatelessWidget {
+class CustomTrickyButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onTap;
 
-  const CustomMediumButton({
+  const CustomTrickyButton({
     super.key,
     required this.buttonText,
     required this.onTap,
@@ -56,17 +56,18 @@ class CustomMediumButton extends StatelessWidget {
                 width: size.width * 0.7,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF88F1E),
+                  color: const Color(0xFFF56300),
                   borderRadius: BorderRadius.circular(25),
                   shape: BoxShape.rectangle,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 209, 120, 30),
+                      color: Color.fromARGB(255, 179, 72, 1),
                       offset: Offset(0, 3),
                       spreadRadius: 0,
                     ),
                     BoxShadow(
-                      color: Color.fromARGB(255, 232, 142, 52),
+                      // color: Color.fromARGB(255, 237, 100, 9),
+                      color: Color.fromARGB(255, 181, 86, 22),
                       offset: Offset(0, -3),
                       spreadRadius: 0,
                     ),
@@ -89,14 +90,14 @@ class CustomMediumButton extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 0,
-                left: 10,
+                top: 5,
+                left: 200,
                 child: Container(
-                    width: 78,
-                    height: 97,
+                    width: 76,
+                    height: 99,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/quirrel.png'),
+                          image: AssetImage('images/panda.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

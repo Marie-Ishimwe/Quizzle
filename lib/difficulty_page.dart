@@ -6,6 +6,9 @@ import 'package:quizzle/icon_smaller.dart';
 
 import 'easy_btn.dart';
 import 'medium_btn.dart';
+import 'premium_btn.dart';
+import 'tough_btn.dart';
+import 'tricky_btn.dart';
 
 class Difficultiness extends StatelessWidget {
   const Difficultiness({
@@ -46,7 +49,7 @@ class Difficultiness extends StatelessWidget {
                         offset: Offset(0, 6),
                         blurRadius: 4),
                     BoxShadow(
-                      color: Color.fromARGB(255, 246, 94, 6),
+                      color: Color.fromRGBO(234, 128, 14, 1),
                       offset: Offset(0, -3),
                       spreadRadius: -1,
                     ),
@@ -94,17 +97,25 @@ class Difficultiness extends StatelessWidget {
               ),
               Expanded(
                 // Added Expanded widget
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, // Centering the column
-                    children: [
-                      CustomEasyButton(buttonText: 'Easy', onTap: () {}),
-                      CustomMediumButton(buttonText: 'Medium', onTap: () {}),
-                      CustomEasyButton(buttonText: 'Easy', onTap: () {}),
-                      CustomEasyButton(buttonText: 'Easy', onTap: () {}),
-                    ],
+                child: Center(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ListView(children: [
+                      Column(
+                        mainAxisAlignment:
+                            MainAxisAlignment.center, // Centering the column
+                        children: [
+                          CustomEasyButton(buttonText: 'Easy', onTap: () {}),
+                          CustomMediumButton(
+                              buttonText: 'Medium', onTap: () {}),
+                          CustomTrickyButton(
+                              buttonText: 'Tricky', onTap: () {}),
+                          CustomToughButton(buttonText: 'Tough', onTap: () {}),
+                          CustomPremiumButton(
+                              buttonText: 'Premium', onTap: () {}),
+                        ],
+                      ),
+                    ]),
                   ),
                 ),
               )

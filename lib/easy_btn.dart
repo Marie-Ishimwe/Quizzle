@@ -56,17 +56,17 @@ class CustomEasyButton extends StatelessWidget {
                 width: size.width * 0.7,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4D6932),
+                  color: const Color(0xFFF7BC00),
                   borderRadius: BorderRadius.circular(25),
                   shape: BoxShape.rectangle,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 85, 100, 50),
+                      color: Color.fromARGB(255, 206, 158, 2),
                       offset: Offset(0, 3),
                       spreadRadius: 0,
                     ),
                     BoxShadow(
-                      color: Color.fromARGB(255, 79, 99, 50),
+                      color: Color.fromARGB(255, 231, 181, 17),
                       offset: Offset(0, -3),
                       spreadRadius: 0,
                     ),
@@ -90,7 +90,7 @@ class CustomEasyButton extends StatelessWidget {
             ),
             Positioned(
                 top: 10,
-                left: 189,
+                left: 200,
                 child: Container(
                     width: 80,
                     height: 88,

@@ -49,8 +49,9 @@ class _ArenaState extends State<Arena> {
                   ),
                 ),
                 const Lives(),
-                const Wins(), // *********coins
-                const Coins()
+                const Wins(),
+                // *********coins
+                const Coins(),
               ],
             ),
           ),
