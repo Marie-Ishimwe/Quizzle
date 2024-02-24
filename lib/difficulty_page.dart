@@ -96,7 +96,6 @@ class Difficultiness extends StatelessWidget {
                 ),
               ),
               Expanded(
-                // Added Expanded widget
                 child: Center(
                   child: SizedBox(
                     width: double.infinity,

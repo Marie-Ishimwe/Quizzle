@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/icon_smaller.dart';
-
+import 'Weekly_challenges/day_1.dart';
+import 'Weekly_challenges/day_2.dart';
+import 'Weekly_challenges/day_3.dart';
+import 'Weekly_challenges/day_4.dart';
+import 'Weekly_challenges/day_5.dart';
+import 'Weekly_challenges/day_6.dart';
+import 'Weekly_challenges/day_7.dart';
 import 'dashboard.dart';
 
 class DailySpecialPage extends StatelessWidget {
@@ -76,6 +82,34 @@ class DailySpecialPage extends StatelessWidget {
                         iconData: FontAwesomeIcons.house,
                       ),
                     ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                    left: 25.0,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: GridView(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                        ),
+                        children: const [
+                          Day1(),
+                          Day2(),
+                          Day3(),
+                          Day4(),
+                          Day5(),
+                          Day6(),
+                          Day7(),
+                        ]),
                   ),
                 ),
               ),

@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/Game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
+import 'package:quizzle/heart_card.dart';
+import 'package:quizzle/purchase_btn.dart';
 
 import 'icon_smaller.dart';
 
-class Shop extends StatelessWidget {
+class Shop extends StatefulWidget {
   const Shop({super.key});
 
+  @override
+  State<Shop> createState() => _ShopState();
+}
+
+class _ShopState extends State<Shop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +85,30 @@ class Shop extends StatelessWidget {
                         iconData: FontAwesomeIcons.house,
                       ),
                     ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 15,
+                    left: 15.0,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: GridView(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                        ),
+                        children: const [
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
+                        ]),
                   ),
                 ),
               ),
