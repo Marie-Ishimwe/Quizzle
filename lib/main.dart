@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quizzle/daily_special.dart';
 import 'package:quizzle/difficulty_page.dart';
+import 'package:quizzle/medium_page.dart';
+import 'package:quizzle/splash_screen.dart';
 
 import 'shop.dart';
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Quizzle',
       debugShowCheckedModeBanner: false,
-      home: Shop(),
+      home: MediumLevel(),
     );
   }
 }

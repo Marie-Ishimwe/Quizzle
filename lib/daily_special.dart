@@ -88,7 +88,7 @@ class DailySpecialPage extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 15,
+                    top: 10,
                     left: 25.0,
                   ),
                   child: SizedBox(
@@ -99,7 +99,7 @@ class DailySpecialPage extends StatelessWidget {
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
+                          crossAxisSpacing: 5,
                         ),
                         children: const [
                           Day1(),

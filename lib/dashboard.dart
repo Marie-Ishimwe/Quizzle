@@ -74,13 +74,11 @@ class _PlaygroundState extends State<Playground> {
                       ),
                       label: 'Shop',
                     ),
-                    IgnorePointer(
-                      child: NavigationDestination(
-                        icon: BottomNavigationIcon(
-                          iconData: FontAwesomeIcons.info,
-                        ),
-                        label: 'About',
+                    NavigationDestination(
+                      icon: BottomNavigationIcon(
+                        iconData: FontAwesomeIcons.info,
                       ),
+                      label: 'About',
                     ),
                   ],
                 ),

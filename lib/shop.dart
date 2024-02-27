@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/Game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/heart_card.dart';
+import 'package:quizzle/hint_dart.dart';
 import 'package:quizzle/purchase_btn.dart';
 
 import 'icon_smaller.dart';
@@ -91,20 +92,30 @@ class _ShopState extends State<Shop> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 15,
+                    top: 5,
                     left: 15.0,
                   ),
                   child: SizedBox(
                     width: double.infinity,
                     child: GridView(
-                        shrinkWrap: true,
+                        // shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 7,
                         ),
                         children: const [
+                          HeartCard(),
+                          HintCard(),
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
+                          HeartCard(),
                           HeartCard(),
                           HeartCard(),
                           HeartCard(),

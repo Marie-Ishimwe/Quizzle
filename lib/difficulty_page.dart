@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/icon_smaller.dart';
+import 'package:quizzle/medium_page.dart';
 
 import 'easy_btn.dart';
 import 'medium_btn.dart';
@@ -106,7 +107,14 @@ class Difficultiness extends StatelessWidget {
                         children: [
                           CustomEasyButton(buttonText: 'Easy', onTap: () {}),
                           CustomMediumButton(
-                              buttonText: 'Medium', onTap: () {}),
+                              buttonText: 'Medium',
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MediumLevel()));
+                              }),
                           CustomTrickyButton(
                               buttonText: 'Tricky', onTap: () {}),
                           CustomToughButton(buttonText: 'Tough', onTap: () {}),

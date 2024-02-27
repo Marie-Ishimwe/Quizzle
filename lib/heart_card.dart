@@ -7,15 +7,15 @@ class HeartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 106,
-      height: 250,
+      width: 140,
+      height: 180,
       child: Stack(
         children: [
           Positioned(
             top: 0,
             left: 0,
             child: Container(
-              width: 106,
+              width: 140,
               height: 100,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -40,12 +40,12 @@ class HeartCard extends StatelessWidget {
                         fontWeight: FontWeight.w900,
                         height: 1.2),
                   ),
-                  // const SizedBox(
-                  //   height: 5,
-                  // ),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Container(
-                    width: 53,
-                    height: 45,
+                    width: 73,
+                    height: 65,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage('images/heart.png'),
@@ -57,11 +57,11 @@ class HeartCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 85,
+            top: 105,
             left: 0,
             child: Container(
-              width: 106,
-              height: 48,
+              width: 140,
+              height: 58,
               decoration: const ShapeDecoration(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(

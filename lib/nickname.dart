@@ -37,7 +37,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: double.infinity,
-                  height: (MediaQuery.of(context).size.height) * 0.32,
+                  height: (MediaQuery.of(context).size.height) * 0.34,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [

@@ -15,7 +15,7 @@ class PurchaseButton extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         children: [
           Container(
-            width: 100,
+            width: 90,
             height: 35,
             decoration: BoxDecoration(
               color: const Color(0xFFF8F4F8),
@@ -41,7 +41,7 @@ class PurchaseButton extends StatelessWidget {
             right: 4.5,
             bottom: 2.5,
             child: Container(
-              width: 90,
+              width: 80,
               height: 25,
               decoration: BoxDecoration(
                 color: const Color(0xFFF88F1E),
