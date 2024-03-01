@@ -41,7 +41,7 @@ class CustomHeader extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const CategoryDescription()));
+                        builder: (context) => const Playground()));
               },
               iconData: FontAwesomeIcons.xmark,
             ),

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
+import 'package:quizzle/easy_page.dart';
 import 'package:quizzle/icon_smaller.dart';
 import 'package:quizzle/medium_page.dart';
+import 'package:quizzle/tough_page.dart';
+import 'package:quizzle/tricky_page.dart';
 
 import 'easy_btn.dart';
 import 'medium_btn.dart';
@@ -105,7 +108,15 @@ class Difficultiness extends StatelessWidget {
                         mainAxisAlignment:
                             MainAxisAlignment.center, // Centering the column
                         children: [
-                          CustomEasyButton(buttonText: 'Easy', onTap: () {}),
+                          CustomEasyButton(
+                              buttonText: 'Easy',
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const EasyLevel()));
+                              }),
                           CustomMediumButton(
                               buttonText: 'Medium',
                               onTap: () {
@@ -116,8 +127,23 @@ class Difficultiness extends StatelessWidget {
                                             const MediumLevel()));
                               }),
                           CustomTrickyButton(
-                              buttonText: 'Tricky', onTap: () {}),
-                          CustomToughButton(buttonText: 'Tough', onTap: () {}),
+                              buttonText: 'Tricky',
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TrickyLevel()));
+                              }),
+                          CustomToughButton(
+                              buttonText: 'Tough',
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ToughLevel()));
+                              }),
                           CustomPremiumButton(
                               buttonText: 'Premium', onTap: () {}),
                         ],

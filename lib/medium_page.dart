@@ -5,6 +5,8 @@ import 'package:quizzle/header.dart';
 import 'icon_smaller.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
+import 'snackbar.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 class MediumLevel extends StatefulWidget {
   const MediumLevel({super.key});
@@ -15,7 +17,7 @@ class MediumLevel extends StatefulWidget {
 
 class _MediumLevelState extends State<MediumLevel> {
   final formKey = GlobalKey<FormState>();
-  final nicknameController = TextEditingController();
+  final answerController = TextEditingController();
   int currentQuestionIndex = 0;
   late List<Question> mediumQuestions;
 
@@ -32,21 +34,26 @@ class _MediumLevelState extends State<MediumLevel> {
   void submitAnswer() {
     if (formKey.currentState!.validate()) {
       // Validate answer
-      final userAnswer = nicknameController.text.trim();
+      final userAnswer = answerController.text.trim();
       final correctAnswer =
           mediumQuestions[currentQuestionIndex].answerText.toLowerCase();
       if (userAnswer.toLowerCase() == correctAnswer) {
         // Show correct message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Correct!')),
+        showCustomSnackBar(
+          context,
+          Colors.green,
+          FontAwesomeIcons.circleCheck,
+          'Correct!',
+          'Coins earned: $correctAnswer',
         );
       } else {
         // Show incorrect message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Column(
-            children: [Text('Incorrect!'), Text('The right answer was')],
-          )),
+        showCustomSnackBar(
+          context,
+          Colors.red,
+          FontAwesomeIcons.circleXmark,
+          'Incorrect!',
+          'The correct answer was: $correctAnswer',
         );
       }
       // Move to the next question if available
@@ -62,7 +69,7 @@ class _MediumLevelState extends State<MediumLevel> {
         );
       }
       // Clear the text field
-      nicknameController.clear();
+      answerController.clear();
     }
   }
 
@@ -102,7 +109,7 @@ class _MediumLevelState extends State<MediumLevel> {
                       children: [
                         Positioned(
                           top: 10,
-                          left: 15,
+                          left: 45,
                           child: ClipOval(
                             child: Container(
                               width: 250,
@@ -167,8 +174,8 @@ class _MediumLevelState extends State<MediumLevel> {
                           ),
                         ),
                         Positioned(
-                          top: 0,
-                          left: 35,
+                          top: 10,
+                          left: 65,
                           child: Container(
                             width: 200,
                             height: 45,
@@ -206,20 +213,6 @@ class _MediumLevelState extends State<MediumLevel> {
                           ),
                         ),
                         Positioned(
-                          left: 180,
-                          top: 180,
-                          child: Container(
-                            width: 154,
-                            height: 179,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/dog_easy.png'),
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
                           top: 350,
                           left: 35,
                           child: Form(
@@ -246,7 +239,7 @@ class _MediumLevelState extends State<MediumLevel> {
                                   child: TextFormField(
                                     keyboardType: TextInputType.name,
                                     textAlign: TextAlign.center,
-                                    controller: nicknameController,
+                                    controller: answerController,
                                     cursorColor: const Color(0xFFF56300),
                                     style: const TextStyle(
                                       color: Color(
@@ -269,12 +262,14 @@ class _MediumLevelState extends State<MediumLevel> {
                                         fontSize: 16,
                                         fontFamily: 'StudioFeixenSansTRIAL',
                                       ),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.auto,
+                                      // floatingLabelBehavior:
+                                      //     FloatingLabelBehavior.auto,
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
-                                        return 'Please enter a nickname';
+                                        // showToastMessage(
+                                        //     "No answer was provided");
+                                        return 'No answer was provided';
                                       }
                                       return null;
                                     },
@@ -288,6 +283,20 @@ class _MediumLevelState extends State<MediumLevel> {
                                   onPressed: submitAnswer,
                                 ),
                               ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: 40,
+                          top: 155,
+                          child: Container(
+                            width: 164,
+                            height: 200,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/quirrel.png'),
+                                fit: BoxFit.fitWidth,
+                              ),
                             ),
                           ),
                         ),
@@ -315,4 +324,16 @@ class _MediumLevelState extends State<MediumLevel> {
       ),
     );
   }
+
+  // void showToastMessage(String message) {
+  //   Fluttertoast.showToast(
+  //       msg: message, //message to show toast
+  //       toastLength: Toast.LENGTH_LONG, //duration for message to show
+  //       gravity: ToastGravity.CENTER, //where you want to show, top, bottom
+  //       timeInSecForIosWeb: 1, //for iOS only
+  //       //backgroundColor: Colors.red, //background Color for message
+  //       textColor: Colors.white, //message text color
+  //       fontSize: 16.0 //message font size
+  //       );
+  // }
 }

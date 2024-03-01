@@ -3,6 +3,7 @@ import 'package:quizzle/daily_special.dart';
 import 'package:quizzle/difficulty_page.dart';
 import 'package:quizzle/medium_page.dart';
 import 'package:quizzle/splash_screen.dart';
+import 'package:quizzle/tricky_page.dart';
 
 import 'shop.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Quizzle',
       debugShowCheckedModeBanner: false,
-      home: MediumLevel(),
+      home: SplashScreen(),
     );
   }
 }

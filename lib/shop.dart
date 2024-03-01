@@ -4,8 +4,6 @@ import 'package:quizzle/Game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/heart_card.dart';
 import 'package:quizzle/hint_dart.dart';
-import 'package:quizzle/purchase_btn.dart';
-
 import 'icon_smaller.dart';
 
 class Shop extends StatefulWidget {
