@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzle/daily_challenges/day_1.dart';
 import 'package:quizzle/small_btn.dart';
 
 class Day1 extends StatelessWidget {
@@ -89,7 +90,14 @@ class Day1 extends StatelessWidget {
                 color: Color(0xFFF2922A),
               ),
               child: Center(
-                child: CustomSmallButton(buttonText: "Day 1", onPressed: () {}),
+                child: CustomSmallButton(
+                    buttonText: "Day 1",
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ChallengeDayOne()));
+                    }),
               ),
             ),
           ),

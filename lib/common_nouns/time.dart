@@ -44,7 +44,7 @@ class TimeWidget extends StatelessWidget {
           left: 5,
           child: Container(
             width: 150,
-            height: 40,
+            height: 37,
             decoration: const ShapeDecoration(
               color: Color(0xFF603D3B),
               shape: RoundedRectangleBorder(
@@ -86,7 +86,7 @@ class TimeWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 18,
+            top: 16,
             left: 28,
             child: Container(
                 width: 112,

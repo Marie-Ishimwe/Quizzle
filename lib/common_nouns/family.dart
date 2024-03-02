@@ -45,7 +45,7 @@ class Family extends StatelessWidget {
           left: 5,
           child: Container(
             width: 150,
-            height: 40,
+            height: 37,
             decoration: const ShapeDecoration(
               color: Color(0xFFC53A14),
               shape: RoundedRectangleBorder(

@@ -50,7 +50,7 @@ class General extends StatelessWidget {
             left: 5,
             child: Container(
               width: 150,
-              height: 40,
+              height: 37,
               decoration: const ShapeDecoration(
                 color: Color(0xFFFD612A),
                 shape: RoundedRectangleBorder(

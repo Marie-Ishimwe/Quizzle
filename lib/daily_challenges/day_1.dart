@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/header.dart';
-import 'icon_smaller.dart';
-import 'orange_btn.dart';
-import 'questions.dart';
-import 'snackbar.dart';
+import '../icon_smaller.dart';
+import '../orange_btn.dart';
+import '../questions.dart';
+import '../snackbar.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
-class ToughLevel extends StatefulWidget {
-  const ToughLevel({super.key});
+class ChallengeDayOne extends StatefulWidget {
+  const ChallengeDayOne({super.key});
 
   @override
-  State<ToughLevel> createState() => _ToughLevelState();
+  State<ChallengeDayOne> createState() => _ChallengeDayOneState();
 }
 
-class _ToughLevelState extends State<ToughLevel> {
+class _ChallengeDayOneState extends State<ChallengeDayOne> {
   final formKey = GlobalKey<FormState>();
   final answerController = TextEditingController();
   int currentQuestionIndex = 0;
-  late List<Question> toughQuestions;
+  late List<Question> trickyQuestions;
 
   @override
   void initState() {
     super.initState();
     // Shuffle and select 10 medium-level questions
-    toughQuestions = List.from(
-        questions.where((question) => question.difficulty == Difficulty.tough));
-    toughQuestions.shuffle();
-    toughQuestions = toughQuestions.take(10).toList();
+    trickyQuestions = List.from(questions
+        .where((question) => question.difficulty == Difficulty.tricky));
+    trickyQuestions.shuffle();
+    trickyQuestions = trickyQuestions.take(10).toList();
   }
 
   void submitAnswer() {
@@ -36,7 +36,7 @@ class _ToughLevelState extends State<ToughLevel> {
       // Validate answer
       final userAnswer = answerController.text.trim();
       final correctAnswer =
-          toughQuestions[currentQuestionIndex].answerText.toLowerCase();
+          trickyQuestions[currentQuestionIndex].answerText.toLowerCase();
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
         showCustomSnackBar(
@@ -57,7 +57,7 @@ class _ToughLevelState extends State<ToughLevel> {
         );
       }
       // Move to the next question if available
-      if (currentQuestionIndex + 1 < toughQuestions.length) {
+      if (currentQuestionIndex + 1 < trickyQuestions.length) {
         setState(() {
           currentQuestionIndex++;
         });
@@ -98,7 +98,7 @@ class _ToughLevelState extends State<ToughLevel> {
           ),
           child: Column(
             children: [
-              const CustomHeader(title: 'Riddle'),
+              const CustomHeader(title: 'Hidden word'),
               const SizedBox(height: 10),
               Expanded(
                 child: SizedBox(
@@ -147,9 +147,18 @@ class _ToughLevelState extends State<ToughLevel> {
                                         letterSpacing: 0,
                                       ),
                                       children: [
-                                        TextSpan(
+                                        const TextSpan(
                                           text:
-                                              '${toughQuestions[currentQuestionIndex].questionText} ',
+                                              'What do the following have in common? ',
+                                        ),
+                                        TextSpan(
+                                          text: trickyQuestions[
+                                                  currentQuestionIndex]
+                                              .questionText,
+                                          style: const TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -183,10 +192,10 @@ class _ToughLevelState extends State<ToughLevel> {
                                 ),
                               ],
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text(
-                                'question ${currentQuestionIndex + 1}',
-                                style: const TextStyle(
+                                'question ',
+                                style: TextStyle(
                                   color: Color(0xFFFFF9DB),
                                   fontFamily: 'Stopbuck',
                                   fontSize: 24,
@@ -248,8 +257,8 @@ class _ToughLevelState extends State<ToughLevel> {
                                         fontSize: 16,
                                         fontFamily: 'StudioFeixenSansTRIAL',
                                       ),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.auto,
+                                      // floatingLabelBehavior:
+                                      //     FloatingLabelBehavior.auto,
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -273,14 +282,14 @@ class _ToughLevelState extends State<ToughLevel> {
                           ),
                         ),
                         Positioned(
-                          left: 20,
-                          top: 185,
+                          left: 180,
+                          top: 170,
                           child: Container(
-                            width: 178,
+                            width: 145,
                             height: 180,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('assets/images/dolphin.png'),
+                                image: AssetImage('images/bonus.png'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),

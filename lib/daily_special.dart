@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/icon_smaller.dart';
-import 'Weekly_challenges/day_1.dart';
-import 'Weekly_challenges/day_2.dart';
-import 'Weekly_challenges/day_3.dart';
-import 'Weekly_challenges/day_4.dart';
-import 'Weekly_challenges/day_5.dart';
-import 'Weekly_challenges/day_6.dart';
-import 'Weekly_challenges/day_7.dart';
+import 'daily_special/day_1.dart';
+import 'daily_special/day_2.dart';
+import 'daily_special/day_3.dart';
+import 'daily_special/day_4.dart';
+import 'daily_special/day_5.dart';
+import 'daily_special/day_6.dart';
+import 'daily_special/day_7.dart';
 import 'dashboard.dart';
 
 class DailySpecialPage extends StatelessWidget {
@@ -62,7 +62,7 @@ class DailySpecialPage extends StatelessWidget {
                         width: 10,
                       ),
                       const Text(
-                        'Weekly special',
+                        'Daily special',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Color.fromRGBO(248, 244, 248, 1),

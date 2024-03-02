@@ -43,7 +43,7 @@ class StartingScreen extends StatelessWidget {
                       height: 200,
                     ),
                     SizedBox(
-                      height: size.height * .03,
+                      height: size.height * .02,
                     ),
                     CustomOrangeButton(
                       buttonText: "Play",

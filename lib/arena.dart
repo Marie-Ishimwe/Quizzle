@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/Game_specials/lives.dart';
+import 'package:quizzle/game_specials/lives.dart';
 import 'package:quizzle/common_nouns/animal.dart';
-import 'package:quizzle/Game_specials/coins.dart';
+import 'package:quizzle/game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/common_nouns/family.dart';
 import 'package:quizzle/common_nouns/general.dart';
 import 'package:quizzle/icon_smaller.dart';
-import 'package:quizzle/Game_specials/wins.dart';
+import 'package:quizzle/game_specials/wins.dart';
 import 'package:quizzle/common_nouns/professions.dart';
 import 'package:quizzle/common_nouns/time.dart';
 import 'package:quizzle/common_nouns/vehicle.dart';
@@ -77,8 +77,8 @@ class _ArenaState extends State<Arena> {
           ),
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 20.0,
-              left: 20.0,
+              top: 10.0,
+              left: 10.0,
             ),
             child: GridView(
               shrinkWrap: true,

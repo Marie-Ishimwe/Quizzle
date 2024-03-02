@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizzle/daily_special.dart';
+import 'package:quizzle/daily_challenges/day_1.dart';
 import 'package:quizzle/difficulty_page.dart';
 import 'package:quizzle/medium_page.dart';
 import 'package:quizzle/splash_screen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Quizzle',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: ChallengeDayOne(),
     );
   }
 }

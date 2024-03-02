@@ -19,16 +19,16 @@ class _EasyLevelState extends State<EasyLevel> {
   final formKey = GlobalKey<FormState>();
   final answerController = TextEditingController();
   int currentQuestionIndex = 0;
-  late List<Question> toughQuestions;
+  late List<Question> trickyQuestions;
 
   @override
   void initState() {
     super.initState();
     // Shuffle and select 10 medium-level questions
-    toughQuestions = List.from(
-        questions.where((question) => question.difficulty == Difficulty.tough));
-    toughQuestions.shuffle();
-    toughQuestions = toughQuestions.take(10).toList();
+    trickyQuestions = List.from(questions
+        .where((question) => question.difficulty == Difficulty.tricky));
+    trickyQuestions.shuffle();
+    trickyQuestions = trickyQuestions.take(10).toList();
   }
 
   void submitAnswer() {
@@ -36,7 +36,7 @@ class _EasyLevelState extends State<EasyLevel> {
       // Validate answer
       final userAnswer = answerController.text.trim();
       final correctAnswer =
-          toughQuestions[currentQuestionIndex].answerText.toLowerCase();
+          trickyQuestions[currentQuestionIndex].answerText.toLowerCase();
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
         showCustomSnackBar(
@@ -57,7 +57,7 @@ class _EasyLevelState extends State<EasyLevel> {
         );
       }
       // Move to the next question if available
-      if (currentQuestionIndex + 1 < toughQuestions.length) {
+      if (currentQuestionIndex + 1 < trickyQuestions.length) {
         setState(() {
           currentQuestionIndex++;
         });
@@ -98,7 +98,7 @@ class _EasyLevelState extends State<EasyLevel> {
           ),
           child: Column(
             children: [
-              const CustomHeader(title: 'Riddle'),
+              const CustomHeader(title: 'Hidden word'),
               const SizedBox(height: 10),
               Expanded(
                 child: SizedBox(
@@ -147,23 +147,18 @@ class _EasyLevelState extends State<EasyLevel> {
                                         letterSpacing: 0,
                                       ),
                                       children: [
-                                        TextSpan(
+                                        const TextSpan(
                                           text:
-                                              '${toughQuestions[currentQuestionIndex].questionText.split(' ')[0]} ',
+                                              'What do the following have in common? ',
                                         ),
                                         TextSpan(
-                                          text: toughQuestions[
+                                          text: trickyQuestions[
                                                   currentQuestionIndex]
-                                              .questionText
-                                              .split(' ')[1],
+                                              .questionText,
                                           style: const TextStyle(
-                                            fontSize: 25,
+                                            fontSize: 22,
                                             fontWeight: FontWeight.w400,
                                           ),
-                                        ),
-                                        TextSpan(
-                                          text:
-                                              ' ${toughQuestions[currentQuestionIndex].questionText.split(' ').sublist(2).join(' ')}',
                                         ),
                                       ],
                                     ),
@@ -287,14 +282,14 @@ class _EasyLevelState extends State<EasyLevel> {
                           ),
                         ),
                         Positioned(
-                          left: 20,
-                          top: 185,
+                          left: 180,
+                          top: 180,
                           child: Container(
-                            width: 178,
+                            width: 158,
                             height: 180,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('assets/images/dolphin.png'),
+                                image: AssetImage('assets/images/dog_easy.png'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),

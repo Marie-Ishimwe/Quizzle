@@ -37,7 +37,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   width: double.infinity,
-                  height: (MediaQuery.of(context).size.height) * 0.34,
+                  height: (MediaQuery.of(context).size.height) * 0.4,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -68,7 +68,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.only(
-                        top: 12.0,
+                        top: 20.0,
                       ),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,

@@ -42,7 +42,7 @@ class Animals extends StatelessWidget {
           left: 5,
           child: Container(
             width: 150,
-            height: 40,
+            height: 37,
             decoration: const ShapeDecoration(
               color: Color(0xFF924C1E),
               shape: RoundedRectangleBorder(
@@ -87,8 +87,8 @@ class Animals extends StatelessWidget {
             top: 0,
             left: 25,
             child: Container(
-                width: 113,
-                height: 139,
+                width: 103,
+                height: 129,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('images/dog.png'),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/Game_specials/coins.dart';
+import 'package:quizzle/game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/heart_card.dart';
 import 'package:quizzle/hint_dart.dart';

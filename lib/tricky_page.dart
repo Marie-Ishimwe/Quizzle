@@ -98,7 +98,7 @@ class _TrickyLevelState extends State<TrickyLevel> {
           ),
           child: Column(
             children: [
-              const CustomHeader(title: 'Riddle'),
+              const CustomHeader(title: 'Tribond'),
               const SizedBox(height: 10),
               Expanded(
                 child: SizedBox(

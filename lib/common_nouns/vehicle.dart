@@ -39,10 +39,10 @@ class Vehicles extends StatelessWidget {
         ),
         Positioned(
           top: 131,
-          left: 5,
+          left: 4,
           child: Container(
             width: 150,
-            height: 40,
+            height: 37,
             decoration: const ShapeDecoration(
               color: Color(0xFF282D3B),
               shape: RoundedRectangleBorder(
@@ -84,11 +84,11 @@ class Vehicles extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 45,
+            top: 43,
             left: 20,
             child: Container(
                 width: 150,
-                height: 105,
+                height: 100,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('images/car.png'),
