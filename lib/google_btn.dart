@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomPremiumButton extends StatelessWidget {
+class CustomGoogleButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onTap;
 
-  const CustomPremiumButton({
+  const CustomGoogleButton({
     super.key,
     required this.buttonText,
     required this.onTap,
@@ -18,12 +18,12 @@ class CustomPremiumButton extends StatelessWidget {
       onTap: onTap,
       child: SizedBox(
         width: size.width * 0.8,
-        height: 125,
+        height: 80,
         child: Stack(
           clipBehavior: Clip.antiAlias,
           children: [
             Positioned(
-              top: 34,
+              top: 0,
               left: 0,
               child: Container(
                 width: size.width * 0.8,
@@ -48,25 +48,25 @@ class CustomPremiumButton extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 45,
+              top: 10,
               left: 5.5,
               right: 5.5,
-              bottom: 30,
+              bottom: 18,
               child: Container(
                 width: size.width * 0.7,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFD6B801),
+                  color: const Color(0xFFF7BC00),
                   borderRadius: BorderRadius.circular(25),
                   shape: BoxShape.rectangle,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 192, 167, 8),
+                      color: Color.fromARGB(255, 206, 158, 2),
                       offset: Offset(0, 3),
                       spreadRadius: 0,
                     ),
                     BoxShadow(
-                      color: Color.fromARGB(255, 240, 190, 26),
+                      color: Color.fromARGB(255, 231, 181, 17),
                       offset: Offset(0, -3),
                       spreadRadius: 0,
                     ),
@@ -89,14 +89,14 @@ class CustomPremiumButton extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 0,
-                left: 200,
+                top: 22,
+                left: 30,
                 child: Container(
-                    width: 73,
-                    height: 100,
+                    width: 25,
+                    height: 26,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/bear-white.png'),
+                          image: AssetImage('images/google.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

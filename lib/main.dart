@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:quizzle/daily_special.dart';
-import 'package:quizzle/daily_challenges/day_1.dart';
-import 'package:quizzle/difficulty_page.dart';
-import 'package:quizzle/medium_page.dart';
-import 'package:quizzle/splash_screen.dart';
-import 'package:quizzle/tricky_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+import 'package:quizzle/authentication_repository.dart';
+import 'package:quizzle/firebase_options.dart';
+import 'package:quizzle/sign_up.dart';
 
-import 'shop.dart';
-
-void main() {
+Future main() async {
+  //Initialize Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ).then(
+    (FirebaseApp value) => Get.put(AuthenticationRepository()),
+  );
   runApp(const MyApp());
 }
 
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Quizzle',
       debugShowCheckedModeBanner: false,
-      home: ChallengeDayOne(),
+      home: SignUp(),
     );
   }
 }

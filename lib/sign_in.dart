@@ -148,23 +148,8 @@ class _SignInState extends State<SignIn> {
                                 key: formKey,
                                 child: Column(
                                   children: [
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20),
-                                            bottomLeft: Radius.circular(20),
-                                            bottomRight: Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Color(0xFFE9E6D1),
-                                              offset: Offset(0, 2),
-                                              // blurRadius: 4,
-                                              spreadRadius: 1),
-                                        ],
-                                      ),
+                                    SizedBox(
                                       width: size.width * .8,
-                                      height: 55,
                                       child: TextFormField(
                                         keyboardType: TextInputType.name,
                                         textAlign: TextAlign.center,
@@ -207,23 +192,8 @@ class _SignInState extends State<SignIn> {
                                     ),
                                     // ************ Password ***************
 
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20),
-                                            bottomLeft: Radius.circular(20),
-                                            bottomRight: Radius.circular(20)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Color(0xFFE9E6D1),
-                                              offset: Offset(0, 2),
-                                              // blurRadius: 4,
-                                              spreadRadius: 1),
-                                        ],
-                                      ),
+                                    SizedBox(
                                       width: size.width * .8,
-                                      height: 55,
                                       child: TextFormField(
                                         keyboardType: TextInputType.name,
                                         obscureText: hidden,

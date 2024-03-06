@@ -205,23 +205,8 @@ class _ToughLevelState extends State<ToughLevel> {
                             key: formKey,
                             child: Column(
                               children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0xFFE9E6D1),
-                                          offset: Offset(0, 2),
-                                          // blurRadius: 4,
-                                          spreadRadius: 1),
-                                    ],
-                                  ),
+                                SizedBox(
                                   width: size.width * .8,
-                                  height: 55,
                                   child: TextFormField(
                                     keyboardType: TextInputType.name,
                                     textAlign: TextAlign.center,
@@ -250,6 +235,13 @@ class _ToughLevelState extends State<ToughLevel> {
                                       ),
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.auto,
+                                      errorStyle: const TextStyle(
+                                        // Customize the style of the error message
+                                        color: Color(
+                                            0xFFF8F4F8), // Change the color of the error message
+                                        fontSize: 14,
+                                        fontFamily: 'StudioFeixenSansTRIAL',
+                                      ),
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {

@@ -10,7 +10,7 @@ import 'package:quizzle/tricky_page.dart';
 
 import 'easy_btn.dart';
 import 'medium_btn.dart';
-import 'premium_btn.dart';
+// import 'google_btn.dart';
 import 'tough_btn.dart';
 import 'tricky_btn.dart';
 
@@ -144,8 +144,8 @@ class Difficultiness extends StatelessWidget {
                                         builder: (context) =>
                                             const ToughLevel()));
                               }),
-                          CustomPremiumButton(
-                              buttonText: 'Premium', onTap: () {}),
+                          // CustomPremiumButton(
+                          //     buttonText: 'Premium', onTap: () {}),
                         ],
                       ),
                     ]),
