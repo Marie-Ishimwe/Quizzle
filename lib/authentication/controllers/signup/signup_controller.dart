@@ -34,36 +34,41 @@ class SignUpController extends GetxController {
       // Form validation
       if (formKey.currentState!.validate()) {
         // If form is validated, perform signup logic
+        // Registering user in Firebase Authentication & Saving data in Firebase
+        final userCredential = await AuthenticationRepository.instance
+            .registerWithEmailAndPassword(
+                emailController.text.trim(), passwordController.text.trim());
 
-        return;
+        // Save Authenticated users in Firestore
+        final newUser = UserModel(
+            id: userCredential.user!.uid,
+            email: emailController.text.trim(),
+            nickname: nicknameController.text.trim());
+        final userRepository = Get.put(UserRepository());
+        await userRepository.saveUserRecord(newUser);
+
+        // Show success message
+        showCustomSnackBar(
+          context,
+          Colors.green,
+          FontAwesomeIcons.circleCheck,
+          'Congratulations!',
+          'Your account has been created! Verify your email to continue',
+        );
+        emailController.clear();
+        nicknameController.clear();
+        passwordController.clear();
+        confirmPasswordController.clear();
+
+        // Navigate to Playground screen after successful account creation
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Playground()),
+        );
       }
-      // Registering user in Firebase Authentication & Saving data in Firebase
-
-      final userCredential = await AuthenticationRepository.instance
-          .registerWithEmailAndPassword(
-              emailController.text.trim(), passwordController.text.trim());
-
-      // Save Authenticated users in Firestore
-      final newUser = UserModel(
-          id: userCredential.user!.uid,
-          email: emailController.text.trim(),
-          nickname: nicknameController.text.trim());
-      final userRepository = Get.put(UserRepository());
-      await userRepository.saveUserRecord(newUser);
-
-      //Show success message
-      showCustomSnackBar(
-        context,
-        Colors.green,
-        FontAwesomeIcons.circleCheck,
-        'Congratulations!',
-        'Your account has been created! verify your email to continue',
-      );
-      // Navigate to Playground screen after successful account creation
-      Get.off(() => const Playground());
     } on FirebaseAuthException catch (e) {
       showCustomSnackBar(
-        scaffoldKey.currentState?.context ?? context,
+        context,
         const Color(0xFFF88F1E),
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',
@@ -76,8 +81,8 @@ class SignUpController extends GetxController {
     } catch (e) {
       // Handle exceptions
       showCustomSnackBar(
-        scaffoldKey.currentState!.context,
-        const Color(0xFFF88F1E),
+        context,
+        Colors.red,
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',
         e.toString(),

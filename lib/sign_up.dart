@@ -12,14 +12,14 @@ import 'package:quizzle/utils/validators/validation.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
-  
+
   @override
   State<SignUp> createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
   bool hidden = true;
-  bool hide = true;
+  bool hidding = true;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -319,7 +319,7 @@ class _SignUpState extends State<SignUp> {
                                       child: TextFormField(
                                           keyboardType:
                                               TextInputType.visiblePassword,
-                                          obscureText: hide,
+                                          obscureText: hidding,
                                           obscuringCharacter: "*",
                                           textAlign: TextAlign.center,
                                           controller: controller
@@ -343,11 +343,11 @@ class _SignUpState extends State<SignUp> {
                                               onPressed: () {
                                                 setState(
                                                   () {
-                                                    hide = !hide;
+                                                    hidding = !hidding;
                                                   },
                                                 );
                                               },
-                                              icon: hidden
+                                              icon: hidding
                                                   ? const FaIcon(
                                                       FontAwesomeIcons.eyeSlash,
                                                       color: Color.fromARGB(

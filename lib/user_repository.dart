@@ -10,7 +10,12 @@ class UserRepository extends GetxController {
     try {
       await _db.collection("Users").doc(user.id).set(user.toJson());
     } catch (e) {
-      throw ('Error registering user: $e');
+      // Specific error handling
+      if (e is FirebaseException) {
+        throw ('Firebase error: ${e.message}');
+      } else {
+        throw ('Unexpected error: $e');
+      }
     }
   }
 }
