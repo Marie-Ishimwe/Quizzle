@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/authentication_repository.dart';
-import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/snackbar.dart';
 import 'package:quizzle/user_repository.dart';
+import 'package:quizzle/verify_email.dart';
 
 import '../../../models/user.dart';
 
@@ -32,6 +32,7 @@ class SignUpController extends GetxController {
 
       // Check Internet connectivity
       // Form validation
+
       if (formKey.currentState!.validate()) {
         // If form is validated, perform signup logic
         // Registering user in Firebase Authentication & Saving data in Firebase
@@ -60,10 +61,9 @@ class SignUpController extends GetxController {
         passwordController.clear();
         confirmPasswordController.clear();
 
-        // Navigate to Playground screen after successful account creation
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const Playground()),
+          MaterialPageRoute(builder: (context) => const VerifyEmailScreen()),
         );
       }
     } on FirebaseAuthException catch (e) {

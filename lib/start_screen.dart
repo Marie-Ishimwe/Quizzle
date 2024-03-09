@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/green_btn.dart';
-import 'package:quizzle/nickname.dart';
 import 'package:quizzle/orange_btn.dart';
 import 'package:quizzle/sign_up.dart';
 
@@ -48,10 +49,7 @@ class StartingScreen extends StatelessWidget {
                     CustomOrangeButton(
                       buttonText: "Play",
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const NicknameScreen()));
+                        Get.offAll(() => const Playground());
                       },
                     ),
                     const SizedBox(
@@ -60,10 +58,7 @@ class StartingScreen extends StatelessWidget {
                     CustomGreenButton(
                       buttonText: 'Save your progress',
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUp()));
+                        Get.offAll(() => const SignUp());
                       },
                     )
                   ],

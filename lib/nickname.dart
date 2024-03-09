@@ -4,7 +4,7 @@ import 'package:quizzle/orange_btn.dart';
 
 class NicknameScreen extends StatefulWidget {
   const NicknameScreen({super.key});
-
+  
   @override
   State<NicknameScreen> createState() => _NicknameScreenState();
 }

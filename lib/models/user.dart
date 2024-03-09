@@ -4,13 +4,16 @@ class UserModel {
   final String id;
   final String email;
   final String nickname;
+  final String accountType; // New field for account type
   int coins;
   int wins;
 
+  // Constructor with default values for new fields
   UserModel({
     required this.id,
     required this.email,
     required this.nickname,
+    this.accountType = 'freemium', // Default value for account type
     this.coins = 0,
     this.wins = 0,
   });
@@ -21,6 +24,7 @@ class UserModel {
       'id': id,
       'Email': email,
       'Nickname': nickname,
+      'account_type': accountType, // Adjust key for account type
       'coins': coins,
       'wins': wins,
     };
@@ -33,19 +37,19 @@ class UserModel {
     if (data != null) {
       return UserModel(
         id: document.id,
-        email:
-            data['Email'] ?? '', // Adjust key names to match JSON serialization
-        nickname: data['Nickname'] ??
-            '', // Adjust key names to match JSON serialization
+        email: data['Email'] ?? '',
+        nickname: data['Nickname'] ?? '',
+        accountType: data['account_type'] ??
+            'freemium', // Retrieve account type from document
         coins: data['coins'] ?? 0,
         wins: data['wins'] ?? 0,
       );
     } else {
-      // Return a default UserModel instance if data is null
       return UserModel(
         id: document.id,
         email: '',
         nickname: '',
+        accountType: 'freemium',
         coins: 0,
         wins: 0,
       );

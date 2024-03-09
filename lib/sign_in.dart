@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/icon_button.dart';
 import 'package:quizzle/orange_btn.dart';
 import 'package:quizzle/sign_up.dart';
-import 'package:quizzle/splash_screen.dart';
 import 'package:quizzle/start_screen.dart';
+
+import 'authentication/controllers/login/login_controller.dart';
+import 'utils/validators/validation.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -15,22 +18,12 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final formKey = GlobalKey<FormState>();
-  final nicknameController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    nicknameController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
   bool hidden = true;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final controller = Get.put(LoginController());
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -145,7 +138,7 @@ class _SignInState extends State<SignIn> {
                                 height: 15,
                               ),
                               Form(
-                                key: formKey,
+                                key: controller.formKey,
                                 child: Column(
                                   children: [
                                     SizedBox(
@@ -153,7 +146,7 @@ class _SignInState extends State<SignIn> {
                                       child: TextFormField(
                                         keyboardType: TextInputType.name,
                                         textAlign: TextAlign.center,
-                                        controller: nicknameController,
+                                        controller: controller.emailController,
                                         cursorColor: const Color(0xFFF56300),
                                         style: const TextStyle(
                                           color: Color(
@@ -178,13 +171,16 @@ class _SignInState extends State<SignIn> {
                                           ),
                                           floatingLabelBehavior:
                                               FloatingLabelBehavior.auto,
+                                          errorStyle: const TextStyle(
+                                            // Customize the style of the error message
+                                            color: Color(
+                                                0xFFF8F4F8), // Change the color of the error message
+                                            fontSize: 14,
+                                            fontFamily: 'StudioFeixenSansTRIAL',
+                                          ),
                                         ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter a nickname';
-                                          }
-                                          return null;
-                                        },
+                                        validator: (value) =>
+                                            Validators.validateEmail(value),
                                       ),
                                     ),
                                     const SizedBox(
@@ -199,7 +195,8 @@ class _SignInState extends State<SignIn> {
                                         obscureText: hidden,
                                         obscuringCharacter: "*",
                                         textAlign: TextAlign.center,
-                                        controller: passwordController,
+                                        controller:
+                                            controller.passwordController,
                                         cursorColor: const Color(0xFFF56300),
                                         style: const TextStyle(
                                           color: Color(
@@ -246,29 +243,50 @@ class _SignInState extends State<SignIn> {
                                           ),
                                           floatingLabelBehavior:
                                               FloatingLabelBehavior.auto,
+                                          errorStyle: const TextStyle(
+                                            // Customize the style of the error message
+                                            color: Color(
+                                                0xFFF8F4F8), // Change the color of the error message
+                                            fontSize: 14,
+                                            fontFamily: 'StudioFeixenSansTRIAL',
+                                          ),
                                         ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Password field can be empty';
-                                          }
-                                          return null;
-                                        },
+                                        validator: (value) =>
+                                            Validators.validateEmptyText(
+                                                'Password', value),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               const SizedBox(
-                                height: 25.0,
+                                height: 5.0,
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: size.width * .55,
+                                  child: TextButton(
+                                    onPressed: () {},
+                                    child: const Text(
+                                      'Forgot password?',
+                                      style: TextStyle(
+                                        color: Color(0xFFFFF9DB),
+                                        fontSize: 14,
+                                        fontFamily: 'StudioFeixenSansTRIAL',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10.0,
                               ),
                               CustomOrangeButton(
                                 buttonText: "Sign in",
                                 onPressed: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SplashScreen()));
+                                  controller.signin(context);
                                 },
                               ),
                               const SizedBox(

@@ -3,11 +3,18 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/authentication/controllers/signup/signup_controller.dart';
 
-class LoadingPage extends StatelessWidget {
+// import '../../authentication_repository.dart';
+
+class LoadingPage extends StatefulWidget {
   const LoadingPage({
     super.key,
   });
 
+  @override
+  State<LoadingPage> createState() => _LoadingPageState();
+}
+
+class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Obx(
