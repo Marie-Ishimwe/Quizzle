@@ -4,7 +4,7 @@ import 'package:quizzle/game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/heart_card.dart';
 import 'package:quizzle/hint_dart.dart';
-import 'icon_smaller.dart';
+import 'smaller_icon_button.dart';
 
 class Shop extends StatefulWidget {
   const Shop({super.key});

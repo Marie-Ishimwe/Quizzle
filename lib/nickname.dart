@@ -4,7 +4,7 @@ import 'package:quizzle/orange_btn.dart';
 
 class NicknameScreen extends StatefulWidget {
   const NicknameScreen({super.key});
-  
+
   @override
   State<NicknameScreen> createState() => _NicknameScreenState();
 }
@@ -164,6 +164,8 @@ class _NicknameScreenState extends State<NicknameScreen> {
                                   ),
                                   CustomOrangeButton(
                                     buttonText: "Get started",
+                                    buttonWidth:
+                                        MediaQuery.of(context).size.width * 0.7,
                                     onPressed: () {
                                       Navigator.pushReplacement(
                                           context,

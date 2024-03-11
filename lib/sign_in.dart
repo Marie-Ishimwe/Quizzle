@@ -288,6 +288,8 @@ class _SignInState extends State<SignIn> {
                                 onPressed: () {
                                   controller.signin(context);
                                 },
+                                buttonWidth:
+                                    MediaQuery.of(context).size.width * 0.7,
                               ),
                               const SizedBox(
                                 height: 15.0,

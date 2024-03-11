@@ -48,6 +48,7 @@ class StartingScreen extends StatelessWidget {
                     ),
                     CustomOrangeButton(
                       buttonText: "Play",
+                      buttonWidth: MediaQuery.of(context).size.width * 0.7,
                       onPressed: () {
                         Get.offAll(() => const Playground());
                       },

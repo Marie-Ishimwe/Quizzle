@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/header.dart';
-import 'icon_smaller.dart';
+import 'dialog.dart';
+import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
@@ -98,7 +99,57 @@ class _TrickyLevelState extends State<TrickyLevel> {
           ),
           child: Column(
             children: [
-              const CustomHeader(title: 'Tribond'),
+              CustomHeader(
+                title: 'Tribond',
+                onCloseTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return CustomDialog(
+                        image: const AssetImage('images/attention.png'),
+                        title: "Unfinished",
+                        message:
+                            "Do you really want to quit playing and risk loosing your progress?",
+                        imageWidth: 120, // Example width
+                        imageHeight: 107,
+                        showCloseButton: false, actionText: "Yes",
+                        onActionPressed: () {
+                          // Define your action here
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Playground()),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+                onQuestionTap: () {
+                  String guideline = Question.guidelines[
+                          trickyQuestions[currentQuestionIndex].difficulty] ??
+                      'No guidelines available.';
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return CustomDialog(
+                        image: const AssetImage('images/goal.png'),
+                        title: "Guidelines",
+                        message: guideline,
+                        imageWidth: 120, // Example width
+                        imageHeight: 120,
+                        showCloseButton: false,
+                        onActionPressed: () {
+                          // Define your action here
+                          Navigator.pop(context);
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
               const SizedBox(height: 10),
               Expanded(
                 child: SizedBox(
@@ -152,11 +203,10 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                               'What do the following have in common? ',
                                         ),
                                         TextSpan(
-                                          text: trickyQuestions[
-                                                  currentQuestionIndex]
-                                              .questionText,
+                                          text:
+                                              '\n${trickyQuestions[currentQuestionIndex].questionText}',
                                           style: const TextStyle(
-                                            fontSize: 22,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -214,23 +264,8 @@ class _TrickyLevelState extends State<TrickyLevel> {
                             key: formKey,
                             child: Column(
                               children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0xFFE9E6D1),
-                                          offset: Offset(0, 2),
-                                          // blurRadius: 4,
-                                          spreadRadius: 1),
-                                    ],
-                                  ),
+                                SizedBox(
                                   width: size.width * .8,
-                                  height: 55,
                                   child: TextFormField(
                                     keyboardType: TextInputType.name,
                                     textAlign: TextAlign.center,
@@ -257,8 +292,15 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                         fontSize: 16,
                                         fontFamily: 'StudioFeixenSansTRIAL',
                                       ),
-                                      // floatingLabelBehavior:
-                                      //     FloatingLabelBehavior.auto,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.auto,
+                                      errorStyle: const TextStyle(
+                                        // Customize the style of the error message
+                                        color: Color(
+                                            0xFFF8F4F8), // Change the color of the error message
+                                        fontSize: 14,
+                                        fontFamily: 'StudioFeixenSansTRIAL',
+                                      ),
                                     ),
                                     validator: (value) {
                                       if (value == null || value.isEmpty) {
@@ -275,6 +317,8 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                 ),
                                 CustomOrangeButton(
                                   buttonText: "Submit",
+                                  buttonWidth:
+                                      MediaQuery.of(context).size.width * 0.7,
                                   onPressed: submitAnswer,
                                 ),
                               ],
@@ -282,14 +326,14 @@ class _TrickyLevelState extends State<TrickyLevel> {
                           ),
                         ),
                         Positioned(
-                          left: 180,
-                          top: 185,
+                          left: 175,
+                          top: 180,
                           child: Container(
-                            width: 138,
-                            height: 180,
+                            width: 160,
+                            height: 197,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('assets/images/panda.png'),
+                                image: AssetImage('images/duck.png'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -299,11 +343,26 @@ class _TrickyLevelState extends State<TrickyLevel> {
                           alignment: Alignment.bottomRight,
                           child: SmallerFaIconButton(
                             onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Playground()));
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return CustomDialog(
+                                    image: const AssetImage('images/bulb.png'),
+                                    title: "Guidelines",
+                                    message:
+                                        trickyQuestions[currentQuestionIndex]
+                                            .hint,
+                                    imageWidth: 80, // Example width
+                                    imageHeight: 120,
+                                    showCloseButton: false,
+                                    onActionPressed: () {
+                                      // Define your action here
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                },
+                              );
                             },
                             iconData: FontAwesomeIcons.lightbulb,
                           ),

@@ -61,13 +61,13 @@ class CustomTrickyButton extends StatelessWidget {
                   shape: BoxShape.rectangle,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromARGB(255, 179, 72, 1),
+                      color: Color.fromARGB(255, 202, 84, 6),
                       offset: Offset(0, 3),
                       spreadRadius: 0,
                     ),
                     BoxShadow(
                       // color: Color.fromARGB(255, 237, 100, 9),
-                      color: Color.fromARGB(255, 181, 86, 22),
+                      color: Color.fromARGB(255, 226, 97, 11),
                       offset: Offset(0, -3),
                       spreadRadius: 0,
                     ),
@@ -90,14 +90,14 @@ class CustomTrickyButton extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 5,
+                top: 10,
                 left: 200,
                 child: Container(
-                    width: 76,
-                    height: 99,
+                    width: 78,
+                    height: 96,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/panda.png'),
+                          image: AssetImage('images/duck.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

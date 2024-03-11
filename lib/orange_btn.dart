@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 class CustomOrangeButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
+  final double buttonWidth; // New parameter for button width
 
-  const CustomOrangeButton(
-      {super.key, required this.buttonText, required this.onPressed});
+  const CustomOrangeButton({
+    Key? key,
+    required this.buttonText,
+    required this.onPressed,
+    required this.buttonWidth, // Initialize the new parameter
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,7 @@ class CustomOrangeButton extends StatelessWidget {
             right: 5.5,
             bottom: 3,
             child: Container(
-              width: size.width * 0.7,
+              width: buttonWidth, // Use the passed width here
               height: 50,
               decoration: BoxDecoration(
                 color: const Color(0xFFF88F1E),
@@ -57,7 +62,6 @@ class CustomOrangeButton extends StatelessWidget {
                   BoxShadow(
                     color: Color.fromARGB(255, 238, 147, 56),
                     offset: Offset(0, -3),
-                    // blurRadius: 1,
                     spreadRadius: 0,
                   ),
                 ],

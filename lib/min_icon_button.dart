@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SmallerFaIconButton extends StatelessWidget {
+class MinFaIconButton extends StatelessWidget {
   final VoidCallback onTap;
   final IconData iconData;
   final Color iconColor;
   final Color buttonColor;
 
-  const SmallerFaIconButton({
+  const MinFaIconButton({
     super.key,
     required this.onTap,
     required this.iconData,
@@ -22,8 +22,8 @@ class SmallerFaIconButton extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 35,
+            height: 35,
             decoration: const ShapeDecoration(
               color: Color(0xFFFDFDFC),
               shape: OvalBorder(),
@@ -40,7 +40,7 @@ class SmallerFaIconButton extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: 2,
+            left: 2.5,
             top: 7,
             right: 2.5,
             bottom: 2,
@@ -68,7 +68,7 @@ class SmallerFaIconButton extends StatelessWidget {
               child: Center(
                 child: FaIcon(
                   iconData,
-                  size: 18.0,
+                  size: 22.0,
                   color: iconColor,
                 ),
               ),

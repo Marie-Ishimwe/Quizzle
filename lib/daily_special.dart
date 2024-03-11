@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/icon_smaller.dart';
+import 'package:quizzle/smaller_icon_button.dart';
 import 'daily_special/day_1.dart';
 import 'daily_special/day_2.dart';
 import 'daily_special/day_3.dart';

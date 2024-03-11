@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/header.dart';
-import 'icon_smaller.dart';
+import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
@@ -98,7 +98,16 @@ class _ToughLevelState extends State<ToughLevel> {
           ),
           child: Column(
             children: [
-              const CustomHeader(title: 'Riddle'),
+              CustomHeader(
+                title: 'Riddle',
+                onCloseTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Playground()),
+                  );
+                },
+                onQuestionTap: () {},
+              ),
               const SizedBox(height: 10),
               Expanded(
                 child: SizedBox(
@@ -258,6 +267,8 @@ class _ToughLevelState extends State<ToughLevel> {
                                 ),
                                 CustomOrangeButton(
                                   buttonText: "Submit",
+                                  buttonWidth:
+                                      MediaQuery.of(context).size.width * 0.7,
                                   onPressed: submitAnswer,
                                 ),
                               ],

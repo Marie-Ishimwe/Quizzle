@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/easy_page.dart';
-import 'package:quizzle/icon_smaller.dart';
+import 'package:quizzle/smaller_icon_button.dart';
 import 'package:quizzle/medium_page.dart';
 import 'package:quizzle/tough_page.dart';
 import 'package:quizzle/tricky_page.dart';

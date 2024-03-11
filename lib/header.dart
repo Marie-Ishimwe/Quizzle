@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/category_description.dart';
-import 'package:quizzle/dashboard.dart';
+// Assuming you have a Playground page
 
-import 'icon_smaller.dart';
+import 'smaller_icon_button.dart';
 
 class CustomHeader extends StatelessWidget {
   final String title;
+  final Function() onCloseTap; // Callback for close button tap
+  final Function() onQuestionTap; // Callback for question button tap
 
   const CustomHeader({
     super.key,
     required this.title,
+    required this.onCloseTap, // Pass the callback function
+    required this.onQuestionTap, // Pass the callback function
   });
 
   @override
@@ -37,12 +40,7 @@ class CustomHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SmallerFaIconButton(
-              onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Playground()));
-              },
+              onTap: onCloseTap, // Use the callback function
               iconData: FontAwesomeIcons.xmark,
             ),
             Text(
@@ -57,12 +55,7 @@ class CustomHeader extends StatelessWidget {
                   height: 1.2),
             ),
             SmallerFaIconButton(
-              onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CategoryDescription()));
-              },
+              onTap: onQuestionTap, // Use the callback function
               iconData: FontAwesomeIcons.question,
             ),
           ],

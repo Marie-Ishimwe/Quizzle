@@ -6,7 +6,7 @@ import 'package:quizzle/game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/common_nouns/family.dart';
 import 'package:quizzle/common_nouns/general.dart';
-import 'package:quizzle/icon_smaller.dart';
+import 'package:quizzle/smaller_icon_button.dart';
 import 'package:quizzle/game_specials/wins.dart';
 import 'package:quizzle/common_nouns/professions.dart';
 import 'package:quizzle/common_nouns/time.dart';

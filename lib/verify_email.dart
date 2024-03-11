@@ -112,6 +112,8 @@ class VerifyEmailScreen extends StatelessWidget {
                           ),
                           CustomOrangeButton(
                             buttonText: "Verify email",
+                            buttonWidth:
+                                MediaQuery.of(context).size.width * 0.7,
                             onPressed: () => controller
                                 .checkEmailVerificationStatus(context),
                           ),

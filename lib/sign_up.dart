@@ -394,6 +394,8 @@ class _SignUpState extends State<SignUp> {
                               ),
                               CustomOrangeButton(
                                   buttonText: "Sign up",
+                                  buttonWidth:
+                                      MediaQuery.of(context).size.width * 0.7,
                                   onPressed: () => controller.signup(context)),
                               const SizedBox(
                                 height: 15.0,

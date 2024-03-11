@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/header.dart';
-import 'icon_smaller.dart';
+import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
@@ -98,7 +99,22 @@ class _EasyLevelState extends State<EasyLevel> {
           ),
           child: Column(
             children: [
-              const CustomHeader(title: 'Hidden word'),
+              CustomHeader(
+                title: 'Hidden word',
+                onCloseTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Playground()),
+                  );
+                },
+                onQuestionTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CategoryDescription()),
+                  );
+                },
+              ),
               const SizedBox(height: 10),
               Expanded(
                 child: SizedBox(
@@ -275,7 +291,7 @@ class _EasyLevelState extends State<EasyLevel> {
                                 ),
                                 CustomOrangeButton(
                                   buttonText: "Submit",
-                                  onPressed: submitAnswer,
+                                  onPressed: submitAnswer,buttonWidth: MediaQuery.of(context).size.width * 0.7,
                                 ),
                               ],
                             ),
