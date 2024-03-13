@@ -49,30 +49,19 @@ class VerifyEmailScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * .45,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                        begin: Alignment(-1, 6.123234262925839e-17),
-                        end: Alignment(6.123234262925839e-17, 1),
-                        colors: [
-                          Color.fromRGBO(242, 124, 7, 0.6299999952316284),
-                          Color.fromRGBO(234, 136, 39, 0.8799999952316284)
-                        ]),
+                      begin: Alignment(-1, 6.123234262925839e-17),
+                      end: Alignment(6.123234262925839e-17, 1),
+                      colors: [
+                        // Color.fromRGBO(
+                        //     238, 172, 108, 0.5600000143051147),
+                        Color.fromRGBO(247, 127, 8, 0.8),
+                        Color.fromRGBO(247, 127, 8, 0.8)
+                      ],
+                    ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(60),
                       topRight: Radius.circular(60),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xFFD98531),
-                        blurRadius: 0,
-                        offset: Offset(0, 2),
-                        spreadRadius: 0,
-                      ),
-                      BoxShadow(
-                        color: Color(0xFFFC9B3C),
-                        blurRadius: 0,
-                        offset: Offset(0, -4),
-                        spreadRadius: 0,
-                      ),
-                    ],
                   ),
                   child: SingleChildScrollView(
                     child: Padding(

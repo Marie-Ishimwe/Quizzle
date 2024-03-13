@@ -21,6 +21,8 @@ class _TrickyLevelState extends State<TrickyLevel> {
   final answerController = TextEditingController();
   int currentQuestionIndex = 0;
   late List<Question> trickyQuestions;
+  int correctAnswersCount = 0; // Initialize count of correct answers
+  int levelMarks = Question.getQuestionWeight(Difficulty.tricky);
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _TrickyLevelState extends State<TrickyLevel> {
     trickyQuestions = trickyQuestions.take(10).toList();
   }
 
-  void submitAnswer() {
+  void submitAnswer() async {
     if (formKey.currentState!.validate()) {
       // Validate answer
       final userAnswer = answerController.text.trim();
@@ -40,16 +42,20 @@ class _TrickyLevelState extends State<TrickyLevel> {
           trickyQuestions[currentQuestionIndex].answerText.toLowerCase();
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
-        showCustomSnackBar(
+        await showCustomSnackBar(
           context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Correct!',
-          'Coins earned: $correctAnswer',
+          'Coins earned: $levelMarks',
         );
+        // Increment the count of correct answers
+        setState(() {
+          correctAnswersCount++;
+        });
       } else {
         // Show incorrect message
-        showCustomSnackBar(
+        await showCustomSnackBar(
           context,
           Colors.red,
           FontAwesomeIcons.circleXmark,
@@ -63,10 +69,31 @@ class _TrickyLevelState extends State<TrickyLevel> {
           currentQuestionIndex++;
         });
       } else {
-        // If all questions are answered, navigate to Playground
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Playground()),
+        // If all questions are answered, calculate the score and navigate to Playground
+        // Assuming all questions are of the same difficulty
+        int playerScore = correctAnswersCount * levelMarks;
+
+        CustomDialog(
+          image: const AssetImage('images/victory_stars.png'),
+          title: "Well done",
+          message:
+              "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
+          imageWidth: 205, // Example width
+          imageHeight: 113,
+          actionText: "Yes",
+          onActionPressed: () {
+            // Define your action here
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Playground()),
+            );
+          },
+          showSecondButton: true, // Assuming you want to show the second button
+          secondButtonText: "No", // Text for the second button
+          onSecondButtonPressed: () {
+            // Define the action for the second button here
+            Navigator.pop(context); // Example action: close the dialog
+          },
         );
       }
       // Clear the text field
@@ -107,13 +134,13 @@ class _TrickyLevelState extends State<TrickyLevel> {
                     barrierDismissible: false,
                     builder: (BuildContext context) {
                       return CustomDialog(
-                        image: const AssetImage('images/attention.png'),
-                        title: "Unfinished",
+                        image: const AssetImage('images/lose.png'),
+                        title: "Quitting",
                         message:
                             "Do you really want to quit playing and risk loosing your progress?",
                         imageWidth: 120, // Example width
-                        imageHeight: 107,
-                        showCloseButton: false, actionText: "Yes",
+                        imageHeight: 111,
+                        actionText: "Yes",
                         onActionPressed: () {
                           // Define your action here
                           Navigator.pushReplacement(
@@ -121,6 +148,11 @@ class _TrickyLevelState extends State<TrickyLevel> {
                             MaterialPageRoute(
                                 builder: (context) => const Playground()),
                           );
+                        },
+                        showSecondButton: true,
+                        secondButtonText: "No", // Text for the second button
+                        onSecondButtonPressed: () {
+                          Navigator.pop(context);
                         },
                       );
                     },
@@ -140,10 +172,17 @@ class _TrickyLevelState extends State<TrickyLevel> {
                         message: guideline,
                         imageWidth: 120, // Example width
                         imageHeight: 120,
-                        showCloseButton: false,
                         onActionPressed: () {
                           // Define your action here
                           Navigator.pop(context);
+                        },
+                        showSecondButton:
+                            false, // Assuming you want to show the second button
+                        secondButtonText: "No", // Text for the second button
+                        onSecondButtonPressed: () {
+                          // Define the action for the second button here
+                          Navigator.pop(
+                              context); // Example action: close the dialog
                         },
                       );
                     },
@@ -177,6 +216,8 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                   begin: Alignment(-1, 6.123234262925839e-17),
                                   end: Alignment(6.123234262925839e-17, 1),
                                   colors: [
+                                    // Color.fromRGBO(
+                                    //     238, 172, 108, 0.5600000143051147),
                                     Color.fromRGBO(
                                         238, 172, 108, 0.8600000143051147),
                                     Color.fromRGBO(247, 127, 8, 1)
@@ -349,16 +390,22 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                 builder: (BuildContext context) {
                                   return CustomDialog(
                                     image: const AssetImage('images/bulb.png'),
-                                    title: "Guidelines",
+                                    title: "Hint",
                                     message:
                                         trickyQuestions[currentQuestionIndex]
                                             .hint,
                                     imageWidth: 80, // Example width
                                     imageHeight: 120,
-                                    showCloseButton: false,
                                     onActionPressed: () {
                                       // Define your action here
                                       Navigator.pop(context);
+                                    },
+                                    showSecondButton: false,
+                                    secondButtonText:
+                                        "No", // Text for the second button
+                                    onSecondButtonPressed: () {
+                                      // Define the action for the second button here
+                                      // Example action: close the dialog
                                     },
                                   );
                                 },

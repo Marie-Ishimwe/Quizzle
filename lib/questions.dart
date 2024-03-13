@@ -23,6 +23,22 @@ class Question {
         'Each riddle describes something without naming it. Your task is to guess the noun being described. Read the clues carefully, think about what object, place, or person it could be, and write down your answer. Remember, all the answers are common nouns you use every day. Good luck and have fun solving the riddles!',
   };
 
+  // Static method to get marks for each difficulty level
+  static int getQuestionWeight(Difficulty difficulty) {
+    switch (difficulty) {
+      case Difficulty.easy:
+        return 1;
+      case Difficulty.medium:
+        return 2;
+      case Difficulty.tricky:
+        return 5;
+      case Difficulty.tough:
+        return 10;
+      default:
+        return 0; // Default case for safety, should not be reached
+    }
+  }
+
   Question({
     required this.questionText,
     required this.answerText,

@@ -59,7 +59,7 @@ class _ShopState extends State<Shop> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Coins(),
+                      const Coins(coinValue: '50000'),
                       const Text(
                         'Shop',
                         textAlign: TextAlign.center,

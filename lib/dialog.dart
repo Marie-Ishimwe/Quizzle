@@ -1,39 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/min_icon_button.dart';
+import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/orange_btn.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
   final String message;
   final ImageProvider image;
-  final double imageWidth; // New parameter for image width
-  final double imageHeight; // New parameter for image height
+  final double imageWidth;
+  final double imageHeight;
+  final String actionText;
+  final VoidCallback onActionPressed;
   final bool
-      showCloseButton; // New parameter to control the visibility of the close button
-  final String actionText; // New parameter for the "Learn more" button text
+      showSecondButton; // New parameter to control the visibility of the second button
+  final String secondButtonText; // New parameter for the second button text
   final VoidCallback
-      onActionPressed; // New parameter for the action to be performed when the button is pressed
+      onSecondButtonPressed; // New parameter for the action to be performed when the second button is pressed
 
   const CustomDialog({
     super.key,
     required this.title,
     required this.message,
     required this.image,
-    required this.imageWidth, // Initialize the new parameter
-    required this.imageHeight, // Initialize the new parameter
-    this.showCloseButton =
-        true, // Initialize the new parameter with a default value of true
-    this.actionText = "Ok", // Initialize the new parameter with a default value
-    required this.onActionPressed, // Initialize the new parameter
+    required this.imageWidth,
+    required this.imageHeight,
+    this.actionText = "Ok",
+    required this.onActionPressed,
+    this.showSecondButton =
+        false, // Initialize the new parameter with a default value of false
+    this.secondButtonText =
+        "Second Action", // Initialize the new parameter with a default value
+    required this.onSecondButtonPressed, // Initialize the new parameter
   });
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: const EdgeInsets.all(20), // Remove default padding
-      backgroundColor:
-          Colors.transparent, // Make the dialog background transparent
+      insetPadding: const EdgeInsets.all(20),
+      backgroundColor: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFFF88F1E),
@@ -55,24 +58,9 @@ class CustomDialog extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisSize:
-                MainAxisSize.min, // To make the dialog wrap its content
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              if (showCloseButton) // Conditional rendering based on showCloseButton
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    MinFaIconButton(
-                      onTap: () {
-                        // Navigation logic
-                      },
-                      iconData: FontAwesomeIcons.xmark,
-                      iconColor: const Color(0xFFFFF9DB),
-                      buttonColor: const Color(0xFFF88F1E),
-                    )
-                  ],
-                ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
               Container(
                 decoration: BoxDecoration(
                     color: const Color(0xFFFAEACA),
@@ -80,7 +68,6 @@ class CustomDialog extends StatelessWidget {
                       width: 10,
                       color: const Color(0xFFDE8627),
                     ),
-                    // Make rounded corners
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   children: [
@@ -88,9 +75,9 @@ class CustomDialog extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Image(
                         image: image,
-                        width: imageWidth, // Use the imageWidth parameter
-                        height: imageHeight, // Use the imageHeight parameter
-                        fit: BoxFit.cover, // Adjust the fit as needed
+                        width: imageWidth,
+                        height: imageHeight,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -126,10 +113,17 @@ class CustomDialog extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomOrangeButton(
-                buttonText: actionText, // Use the actionText parameter
-                onPressed: onActionPressed, // Use the onActionPressed parameter
+                buttonText: actionText,
+                onPressed: onActionPressed,
                 buttonWidth: MediaQuery.of(context).size.width * 0.7,
               ),
+              const SizedBox(height: 20),
+              if (showSecondButton) // Conditional rendering based on showSecondButton
+                CustomGreenButton(
+                  buttonText: secondButtonText,
+                  onTap: onSecondButtonPressed,
+                  // buttonWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
             ],
           ),
         ),

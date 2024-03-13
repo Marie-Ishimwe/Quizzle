@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Wins extends StatelessWidget {
-  const Wins({super.key});
+  final String winsValue;
+  const Wins({
+    super.key,
+    required this.winsValue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,27 +30,26 @@ class Wins extends StatelessWidget {
                     bottomLeft: Radius.circular(20.0),
                   ),
                 ),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0xFFE8E3E0),
-                    offset: Offset(0, 1),
-                    spreadRadius: 1,
-                  ),
-                  BoxShadow(
-                    color: Color(0xFFBEBBBB),
-                    offset: Offset(0, -1),
-                    spreadRadius: -1,
-                  ),
-                ],
+                // shadows: [
+                //   BoxShadow(
+                //     color: Color(0xFFE8E3E0),
+                //     offset: Offset(0, 1),
+                //     spreadRadius: 1,
+                //   ),
+                //   BoxShadow(
+                //     color: Color(0xFFBEBBBB),
+                //     offset: Offset(0, -1),
+                //     spreadRadius: -1,
+                //   ),
+                // ],
               ),
-              child: const Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.0),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Center(
                   child: Text(
-                    '500',
+                    winsValue,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFFF88F1E),
                       fontSize: 14,
                       fontFamily: 'StudioFeixenSansTRIAL',

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Lives extends StatelessWidget {
-  const Lives({super.key});
+  final String livesValues;
+  const Lives({
+    super.key,
+    required this.livesValues,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,27 +30,15 @@ class Lives extends StatelessWidget {
                     bottomLeft: Radius.circular(20.0),
                   ),
                 ),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0xFFE8E3E0),
-                    offset: Offset(0, 1),
-                    spreadRadius: 1,
-                  ),
-                  BoxShadow(
-                    color: Color(0xFFBEBBBB),
-                    offset: Offset(0, -1),
-                    spreadRadius: -1,
-                  ),
-                ],
               ),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0),
+                  padding: const EdgeInsets.only(left: 20.0),
                   child: Text(
-                    '25',
+                    livesValues,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFFF88F1E),
                       fontSize: 14,
                       fontFamily: 'StudioFeixenSansTRIAL',

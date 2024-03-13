@@ -3,9 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/game_specials/lives.dart';
 import 'package:quizzle/common_nouns/animal.dart';
 import 'package:quizzle/game_specials/coins.dart';
-import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/common_nouns/family.dart';
 import 'package:quizzle/common_nouns/general.dart';
+import 'package:quizzle/profile.dart';
 import 'package:quizzle/smaller_icon_button.dart';
 import 'package:quizzle/game_specials/wins.dart';
 import 'package:quizzle/common_nouns/professions.dart';
@@ -40,18 +40,19 @@ class _ArenaState extends State<Arena> {
                   padding: const EdgeInsets.all(2.0),
                   child: SmallerFaIconButton(
                     onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Playground()));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const ProfilePage();
+                          });
                     },
                     iconData: FontAwesomeIcons.user,
                   ),
                 ),
-                const Lives(),
-                const Wins(),
+                const Lives(livesValues: '25'),
+                const Wins(winsValue: '10'),
                 // *********coins
-                const Coins(),
+                const Coins(coinValue: '50000'),
               ],
             ),
           ),

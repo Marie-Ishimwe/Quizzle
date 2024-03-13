@@ -70,261 +70,240 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 Expanded(
-                  child: Opacity(
-                    opacity: .85,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * .75,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xE0EA8827),
-                              Color(0xA0F27C07),
-                            ],
-                            begin: Alignment(0.00, -1.00),
-                            end: Alignment(0, 1),
-                          ),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(60),
-                              topRight: Radius.circular(60)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFFD98531),
-                              blurRadius: 0,
-                              offset: Offset(0, 2),
-                              spreadRadius: 0,
-                            ),
-                            BoxShadow(
-                              color: Color(0xFFFC9B3C),
-                              blurRadius: 0,
-                              offset: Offset(0, -4),
-                              spreadRadius: 0,
-                            )
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * .75,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment(-1, 6.123234262925839e-17),
+                          end: Alignment(6.123234262925839e-17, 1),
+                          colors: [
+                            Color.fromRGBO(247, 127, 8, 0.7),
+                            Color.fromRGBO(247, 127, 8, 0.7)
                           ],
                         ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 20,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(60),
+                          topRight: Radius.circular(60),
+                        ),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              'Sign in',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFFFFF9DB),
+                                fontSize: 48,
+                                fontFamily: 'SantaChildFont',
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 2.40,
                               ),
-                              const Text(
-                                'Sign in',
+                            ),
+                            SizedBox(
+                              width: size.width * .8,
+                              child: const Text(
+                                'Hi there! Welcome back to Quizzle. It is a pleasure to have you back....',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFFFFF9DB),
-                                  fontSize: 48,
-                                  fontFamily: 'SantaChildFont',
+                                  fontSize: 14,
+                                  fontFamily: 'StudioFeixenSansTRIAL',
                                   fontWeight: FontWeight.w400,
-                                  letterSpacing: 2.40,
                                 ),
                               ),
-                              SizedBox(
-                                width: size.width * .8,
-                                child: const Text(
-                                  'Hi there! Welcome back to Quizzle. It is a pleasure to have you back....',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFFFFF9DB),
-                                    fontSize: 14,
-                                    fontFamily: 'StudioFeixenSansTRIAL',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Form(
-                                key: controller.formKey,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      width: size.width * .8,
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.name,
-                                        textAlign: TextAlign.center,
-                                        controller: controller.emailController,
-                                        cursorColor: const Color(0xFFF56300),
-                                        style: const TextStyle(
-                                          color: Color(
-                                              0xFFF56300), // Set the text color to orange
-                                          fontSize: 16,
-                                          fontFamily: 'StudioFeixenSansTRIAL',
-                                        ),
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: const Color(0xFFF8F4F8),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide.none,
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                          ),
-                                          hintText: "Nickname",
-                                          hintStyle: const TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 239, 166, 117),
-                                            fontSize: 16,
-                                            fontFamily: 'StudioFeixenSansTRIAL',
-                                          ),
-                                          floatingLabelBehavior:
-                                              FloatingLabelBehavior.auto,
-                                          errorStyle: const TextStyle(
-                                            // Customize the style of the error message
-                                            color: Color(
-                                                0xFFF8F4F8), // Change the color of the error message
-                                            fontSize: 14,
-                                            fontFamily: 'StudioFeixenSansTRIAL',
-                                          ),
-                                        ),
-                                        validator: (value) =>
-                                            Validators.validateEmail(value),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 15.0,
-                                    ),
-                                    // ************ Password ***************
-
-                                    SizedBox(
-                                      width: size.width * .8,
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.name,
-                                        obscureText: hidden,
-                                        obscuringCharacter: "*",
-                                        textAlign: TextAlign.center,
-                                        controller:
-                                            controller.passwordController,
-                                        cursorColor: const Color(0xFFF56300),
-                                        style: const TextStyle(
-                                          color: Color(
-                                              0xFFF56300), // Set the text color to orange
-                                          fontSize: 16,
-                                          fontFamily: 'StudioFeixenSansTRIAL',
-                                        ),
-                                        decoration: InputDecoration(
-                                          filled: true,
-                                          fillColor: const Color(0xFFF8F4F8),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide.none,
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                          ),
-                                          suffixIcon: IconButton(
-                                            onPressed: () {
-                                              setState(
-                                                () {
-                                                  hidden = !hidden;
-                                                },
-                                              );
-                                            },
-                                            icon: hidden
-                                                ? const FaIcon(
-                                                    FontAwesomeIcons.eyeSlash,
-                                                    color: Color.fromARGB(
-                                                        255, 239, 166, 117),
-                                                    size: 15.0,
-                                                  )
-                                                : const FaIcon(
-                                                    FontAwesomeIcons.eye,
-                                                    color: Color.fromARGB(
-                                                        255, 239, 166, 117),
-                                                    size: 15.0,
-                                                  ),
-                                          ),
-                                          hintText: "Password",
-                                          hintStyle: const TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 239, 166, 117),
-                                            fontSize: 16,
-                                            fontFamily: 'StudioFeixenSansTRIAL',
-                                          ),
-                                          floatingLabelBehavior:
-                                              FloatingLabelBehavior.auto,
-                                          errorStyle: const TextStyle(
-                                            // Customize the style of the error message
-                                            color: Color(
-                                                0xFFF8F4F8), // Change the color of the error message
-                                            fontSize: 14,
-                                            fontFamily: 'StudioFeixenSansTRIAL',
-                                          ),
-                                        ),
-                                        validator: (value) =>
-                                            Validators.validateEmptyText(
-                                                'Password', value),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: SizedBox(
-                                  width: size.width * .55,
-                                  child: TextButton(
-                                    onPressed: () {},
-                                    child: const Text(
-                                      'Forgot password?',
-                                      style: TextStyle(
-                                        color: Color(0xFFFFF9DB),
-                                        fontSize: 14,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Form(
+                              key: controller.formKey,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    width: size.width * .8,
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.name,
+                                      textAlign: TextAlign.center,
+                                      controller: controller.emailController,
+                                      cursorColor: const Color(0xFFF56300),
+                                      style: const TextStyle(
+                                        color: Color(
+                                            0xFFF56300), // Set the text color to orange
+                                        fontSize: 16,
                                         fontFamily: 'StudioFeixenSansTRIAL',
-                                        fontWeight: FontWeight.w400,
                                       ),
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: const Color(0xFFF8F4F8),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        ),
+                                        hintText: "Email",
+                                        hintStyle: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 239, 166, 117),
+                                          fontSize: 16,
+                                          fontFamily: 'StudioFeixenSansTRIAL',
+                                        ),
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.auto,
+                                        errorStyle: const TextStyle(
+                                          // Customize the style of the error message
+                                          color: Color(
+                                              0xFFF8F4F8), // Change the color of the error message
+                                          fontSize: 14,
+                                          fontFamily: 'StudioFeixenSansTRIAL',
+                                        ),
+                                      ),
+                                      validator: (value) =>
+                                          Validators.validateEmail(value),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  // ************ Password ***************
+
+                                  SizedBox(
+                                    width: size.width * .8,
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.name,
+                                      obscureText: hidden,
+                                      obscuringCharacter: "*",
+                                      textAlign: TextAlign.center,
+                                      controller: controller.passwordController,
+                                      cursorColor: const Color(0xFFF56300),
+                                      style: const TextStyle(
+                                        color: Color(
+                                            0xFFF56300), // Set the text color to orange
+                                        fontSize: 16,
+                                        fontFamily: 'StudioFeixenSansTRIAL',
+                                      ),
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: const Color(0xFFF8F4F8),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        ),
+                                        suffixIcon: IconButton(
+                                          onPressed: () {
+                                            setState(
+                                              () {
+                                                hidden = !hidden;
+                                              },
+                                            );
+                                          },
+                                          icon: hidden
+                                              ? const FaIcon(
+                                                  FontAwesomeIcons.eyeSlash,
+                                                  color: Color.fromARGB(
+                                                      255, 239, 166, 117),
+                                                  size: 15.0,
+                                                )
+                                              : const FaIcon(
+                                                  FontAwesomeIcons.eye,
+                                                  color: Color.fromARGB(
+                                                      255, 239, 166, 117),
+                                                  size: 15.0,
+                                                ),
+                                        ),
+                                        hintText: "Password",
+                                        hintStyle: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 239, 166, 117),
+                                          fontSize: 16,
+                                          fontFamily: 'StudioFeixenSansTRIAL',
+                                        ),
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.auto,
+                                        errorStyle: const TextStyle(
+                                          // Customize the style of the error message
+                                          color: Color(
+                                              0xFFF8F4F8), // Change the color of the error message
+                                          fontSize: 14,
+                                          fontFamily: 'StudioFeixenSansTRIAL',
+                                        ),
+                                      ),
+                                      validator: (value) =>
+                                          Validators.validateEmptyText(
+                                              'Password', value),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: SizedBox(
+                                width: size.width * .55,
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    'Forgot password?',
+                                    style: TextStyle(
+                                      color: Color(0xFFFFF9DB),
+                                      fontSize: 14,
+                                      fontFamily: 'StudioFeixenSansTRIAL',
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              CustomOrangeButton(
-                                buttonText: "Sign in",
-                                onPressed: () {
-                                  controller.signin(context);
-                                },
-                                buttonWidth:
-                                    MediaQuery.of(context).size.width * 0.7,
-                              ),
-                              const SizedBox(
-                                height: 15.0,
-                              ),
-                              SizedBox(
-                                width: size.width * .8,
-                                child: const Text(
-                                  'New here?',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color(0xFFFFF9DB),
-                                    fontSize: 14,
-                                    fontFamily: 'StudioFeixenSansTRIAL',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            CustomOrangeButton(
+                              buttonText: "Sign in",
+                              onPressed: () {
+                                controller.signin(context);
+                              },
+                              buttonWidth:
+                                  MediaQuery.of(context).size.width * 0.7,
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            SizedBox(
+                              width: size.width * .8,
+                              child: const Text(
+                                'Don\'t have an accout?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFFFFF9DB),
+                                  fontSize: 14,
+                                  fontFamily: 'StudioFeixenSansTRIAL',
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10.0,
-                              ),
-                              CustomGreenButton(
-                                buttonText: 'Sign up',
-                                onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SignUp()));
-                                },
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            CustomGreenButton(
+                              buttonText: 'Sign up',
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const SignUp()));
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),

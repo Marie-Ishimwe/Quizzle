@@ -108,6 +108,9 @@ class Difficultiness extends StatelessWidget {
                         mainAxisAlignment:
                             MainAxisAlignment.center, // Centering the column
                         children: [
+                          const SizedBox(
+                            height: 50,
+                          ),
                           CustomEasyButton(
                               buttonText: 'Easy',
                               onTap: () {
