@@ -7,6 +7,7 @@ class UserModel {
   final String accountType; // New field for account type
   int coins;
   int wins;
+  int hints;
 
   // Constructor with default values for new fields
   UserModel({
@@ -16,6 +17,7 @@ class UserModel {
     this.accountType = 'freemium', // Default value for account type
     this.coins = 0,
     this.wins = 0,
+    this.hints = 0, // Default value for hint
   });
 
   // Convert UserModel to a Map for JSON serialization
@@ -27,6 +29,7 @@ class UserModel {
       'account_type': accountType, // Adjust key for account type
       'coins': coins,
       'wins': wins,
+      'hints': hints, // Include hint in the serialized map
     };
   }
 
@@ -43,6 +46,8 @@ class UserModel {
             'freemium', // Retrieve account type from document
         coins: data['coins'] ?? 0,
         wins: data['wins'] ?? 0,
+        hints: data['hints'] ??
+            0, // Retrieve hint from document, default to 0 if not present
       );
     } else {
       return UserModel(
@@ -52,6 +57,7 @@ class UserModel {
         accountType: 'freemium',
         coins: 0,
         wins: 0,
+        hints: 0, // Default value for hint
       );
     }
   }

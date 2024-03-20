@@ -168,12 +168,12 @@ class ProfilePage extends StatelessWidget {
               number: user.coins.toString(),
             ),
             const SizedBox(height: 10),
-            const StatisticsContainer(
+            StatisticsContainer(
               imagePath: 'images/bulb.png',
               imageWidth: 27,
               imageHeight: 40,
               message: "Hints used",
-              number: "25",
+              number: user.hints.toString(),
             ),
           ],
         ),

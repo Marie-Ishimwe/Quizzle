@@ -1,12 +1,18 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quizzle/authentication_repository.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/dialog.dart';
 import 'package:quizzle/header.dart';
+import 'package:quizzle/user_repository.dart';
 import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
+
 // import 'package:fluttertoast/fluttertoast.dart';
 
 class EasyLevel extends StatefulWidget {
@@ -23,6 +29,9 @@ class _EasyLevelState extends State<EasyLevel> {
   late List<Question> easyQuestions;
   int correctAnswersCount = 0; // Initialize count of correct answers
   int levelMarks = Question.getQuestionWeight(Difficulty.easy);
+  int hintCount = 0;
+  int lives = 25;
+  Timer? liveTimer;
 
   @override
   void initState() {
@@ -32,14 +41,26 @@ class _EasyLevelState extends State<EasyLevel> {
         questions.where((question) => question.difficulty == Difficulty.easy));
     easyQuestions.shuffle();
     easyQuestions = easyQuestions.take(2).toList();
+    liveTimer = Timer.periodic(const Duration(minutes: 30), (timer) {
+      setState(() {
+        lives++;
+      });
+      // Optionally, show a notification or message to the player
+    });
+  }
+
+  @override
+  void dispose() {
+    liveTimer?.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   void submitAnswer() async {
     if (formKey.currentState!.validate()) {
-      // Validate answer
       final userAnswer = answerController.text.trim();
       final correctAnswer =
           easyQuestions[currentQuestionIndex].answerText.toLowerCase();
+
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
         await showCustomSnackBar(
@@ -61,17 +82,45 @@ class _EasyLevelState extends State<EasyLevel> {
           FontAwesomeIcons.circleXmark,
           'Incorrect!',
           'The correct answer was: $correctAnswer',
-        );
+        ); // Decrease lives
+        setState(() {
+          lives--;
+        });
       }
-      // Move to the next question if available
-      if (currentQuestionIndex + 1 < easyQuestions.length) {
+      if (currentQuestionIndex + 1 < easyQuestions.length && lives > 0) {
         setState(() {
           currentQuestionIndex++;
         });
+      } else if (lives <= 0) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialog(
+              image: const AssetImage('images/bulb.png'),
+              title: "Game over",
+              message:
+                  "You have runout of lives! You will have to wait for some time before you can play again!",
+              imageWidth: 80, // Example width
+              imageHeight: 120,
+              actionText: "Playground", // Specify the action text
+              onActionPressed: () {
+                // Define your action here
+                Navigator.pop(context);
+              },
+              showCustomRow: false, // Set to false to hide the custom row
+              customText:
+                  "Custom Text", // Pass any string you want to display in the custom row
+              closeIcon: FontAwesomeIcons.xmark, // Specify the close icon
+              onClosePressed: (BuildContext context) {
+                Navigator.pop(context); // Close the dialog
+              },
+            );
+          },
+        );
       } else {
-        // If all questions are answered, calculate the score and navigate to Playground
         int playerScore = correctAnswersCount * levelMarks;
-
+        print(hintCount);
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -104,8 +153,78 @@ class _EasyLevelState extends State<EasyLevel> {
             );
           },
         );
+
+        // Check if the user is authenticated
+        if (AuthenticationRepository.instance.authUser?.uid != null) {
+          // Fetch the user's current coin count
+          DocumentSnapshot userDoc = await UserRepository.instance
+              .getFirestore()
+              .collection("Users")
+              .doc(AuthenticationRepository.instance.authUser?.uid)
+              .get();
+          int currentCoins =
+              (userDoc.data() as Map<String, dynamic>)['coins'] ?? 0;
+          int currentWins =
+              (userDoc.data() as Map<String, dynamic>)['wins'] ?? 0;
+          int currentHintCount =
+              (userDoc.data() as Map<String, dynamic>)['hints'] ?? 0;
+
+          // Calculate the new total coins
+          int newTotalCoins = currentCoins + playerScore;
+
+          // Update the user's coins and wins in Firestore
+          Map<String, dynamic> updateData = {
+            'coins': newTotalCoins, // Update the coins field with the new total
+            'wins': correctAnswersCount == 2 ? currentWins + 1 : currentWins,
+            // Update the wins field if all questions are answered correctly
+            'hints': currentHintCount + hintCount,
+          };
+
+          try {
+            await UserRepository.instance.updateSingleAttribute(updateData);
+            // Navigate to the next screen or show a dialog after updating the coins
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return CustomDialog(
+                  image: const AssetImage('images/victory_stars.png'),
+                  title: "Well done",
+                  message:
+                      "Correct answers: $correctAnswersCount\nIncorrect answers: ${2 - correctAnswersCount}\nCoins earned: $playerScore",
+                  imageWidth: 205,
+                  imageHeight: 113,
+                  actionText: "Retry",
+                  onActionPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EasyLevel()),
+                    );
+                  },
+                  showCustomRow: true,
+                  customText: "Results",
+                  closeIcon: FontAwesomeIcons.house,
+                  onClosePressed: (BuildContext context) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Playground(),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } catch (e) {
+            print('Failed to update coins: $e');
+          }
+        } else {
+          // Handle the case where the user is not authenticated
+          print('User is not authenticated.');
+          // You might want to show a dialog or navigate to a login screen here
+        }
       }
-      // Clear the text field
       answerController.clear();
     }
   }
@@ -398,6 +517,7 @@ class _EasyLevelState extends State<EasyLevel> {
                           alignment: Alignment.bottomRight,
                           child: SmallerFaIconButton(
                             onTap: () {
+                              hintCount++;
                               showDialog(
                                 context: context,
                                 barrierDismissible: false,

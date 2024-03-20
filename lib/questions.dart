@@ -545,7 +545,7 @@ List<Question> questions = [
   ),
   Question(
     questionText: 'seven - first - eight - twenty',
-    answerText: 'twenty',
+    answerText: 'first',
     difficulty: Difficulty.easy,
     hint: 'The common theme in this question is numerical order.',
   ),

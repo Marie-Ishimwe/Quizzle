@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/authentication/controllers/signup/signup_controller.dart';
-import 'package:quizzle/google_btn.dart';
 import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/icon_button.dart';
 import 'package:quizzle/orange_btn.dart';
@@ -375,11 +374,11 @@ class _SignUpState extends State<SignUp> {
                             const SizedBox(
                               height: 15.0,
                             ),
-                            CustomGoogleButton(
-                                buttonText: 'Use Google', onTap: () {}),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
+                            // CustomGoogleButton(
+                            //     buttonText: 'Use Google', onTap: () {}),
+                            // const SizedBox(
+                            //   height: 10.0,
+                            // ),
                             SizedBox(
                               width: size.width * .8,
                               child: const Text(
