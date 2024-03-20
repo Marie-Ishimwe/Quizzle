@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quizzle/dashboard.dart';
+import 'package:quizzle/dialog.dart';
 import 'package:quizzle/header.dart';
 import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
@@ -20,6 +21,8 @@ class _MediumLevelState extends State<MediumLevel> {
   final answerController = TextEditingController();
   int currentQuestionIndex = 0;
   late List<Question> mediumQuestions;
+  int correctAnswersCount = 0; // Initialize count of correct answers
+  int levelMarks = Question.getQuestionWeight(Difficulty.medium);
 
   @override
   void initState() {
@@ -31,7 +34,7 @@ class _MediumLevelState extends State<MediumLevel> {
     mediumQuestions = mediumQuestions.take(10).toList();
   }
 
-  void submitAnswer() {
+  void submitAnswer() async {
     if (formKey.currentState!.validate()) {
       // Validate answer
       final userAnswer = answerController.text.trim();
@@ -39,16 +42,20 @@ class _MediumLevelState extends State<MediumLevel> {
           mediumQuestions[currentQuestionIndex].answerText.toLowerCase();
       if (userAnswer.toLowerCase() == correctAnswer) {
         // Show correct message
-        showCustomSnackBar(
+        await showCustomSnackBar(
           context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Correct!',
-          'Coins earned: $correctAnswer',
+          'Coins earned: $levelMarks',
         );
+        // Increment the count of correct answers
+        setState(() {
+          correctAnswersCount++;
+        });
       } else {
         // Show incorrect message
-        showCustomSnackBar(
+        await showCustomSnackBar(
           context,
           Colors.red,
           FontAwesomeIcons.circleXmark,
@@ -63,9 +70,39 @@ class _MediumLevelState extends State<MediumLevel> {
         });
       } else {
         // If all questions are answered, navigate to Playground
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Playground()),
+        int playerScore = correctAnswersCount * levelMarks;
+
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialog(
+              image: const AssetImage('images/victory_stars.png'),
+              title: "Well done",
+              message:
+                  "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
+              imageWidth: 205, // Example width
+              imageHeight: 113,
+              actionText: "Retry",
+              onActionPressed: () {
+                // Define your action here
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MediumLevel()),
+                );
+              },
+              showCustomRow: true,
+              customText:
+                  "Results", // Pass any string you want to display in the custom row
+              closeIcon: FontAwesomeIcons.house, // Specify the close icon
+              onClosePressed: (BuildContext context) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Playground()));
+              },
+            );
+          },
         );
       }
       // Clear the text field
@@ -101,12 +138,71 @@ class _MediumLevelState extends State<MediumLevel> {
               CustomHeader(
                 title: 'Anagram',
                 onCloseTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Playground()),
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return CustomDialog(
+                        image: const AssetImage('images/lose.png'),
+                        title: "Quitting",
+                        message:
+                            "Do you really want to quit playing and risk losing your progress?",
+                        imageWidth: 120, // Example width
+                        imageHeight: 111,
+                        actionText: "Yes",
+                        onActionPressed: () {
+                          // Define your action here
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Playground()),
+                          );
+                        },
+                        showCustomRow:
+                            true, // Set to true to show the custom row
+                        customText:
+                            "Custom Text", // Pass any string you want to display in the custom row
+                        closeIcon:
+                            FontAwesomeIcons.xmark, // Specify the close icon
+                        onClosePressed: (BuildContext context) {
+                          Navigator.pop(context); // Close the dialog
+                        },
+                      );
+                    },
                   );
                 },
-                onQuestionTap: () {},
+                onQuestionTap: () {
+                  String guideline = Question.guidelines[
+                          mediumQuestions[currentQuestionIndex].difficulty] ??
+                      'No guidelines available.';
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return CustomDialog(
+                        image: const AssetImage('images/goal.png'),
+                        title: "Guidelines",
+                        message: guideline,
+                        imageWidth: 120, // Example width
+                        imageHeight: 120,
+                        actionText: "Ok", // Specify the action text
+                        onActionPressed: () {
+                          // Define your action here
+                          Navigator.pop(context);
+                        },
+                        showCustomRow:
+                            false, // Set to false to hide the custom row
+                        customText:
+                            "Custom Text", // Pass any string you want to display in the custom row
+                        closeIcon:
+                            FontAwesomeIcons.xmark, // Specify the close icon
+                        onClosePressed: (BuildContext context) {
+                          Navigator.pop(context); // Close the dialog
+                        },
+                      );
+                    },
+                  );
+                },
               ),
               const SizedBox(height: 10),
               Expanded(
@@ -228,23 +324,8 @@ class _MediumLevelState extends State<MediumLevel> {
                             key: formKey,
                             child: Column(
                               children: [
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                        bottomLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0xFFE9E6D1),
-                                          offset: Offset(0, 2),
-                                          // blurRadius: 4,
-                                          spreadRadius: 1),
-                                    ],
-                                  ),
+                                SizedBox(
                                   width: size.width * .8,
-                                  height: 55,
                                   child: TextFormField(
                                     keyboardType: TextInputType.name,
                                     textAlign: TextAlign.center,
@@ -315,11 +396,36 @@ class _MediumLevelState extends State<MediumLevel> {
                           alignment: Alignment.bottomRight,
                           child: SmallerFaIconButton(
                             onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Playground()));
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return CustomDialog(
+                                    image: const AssetImage('images/bulb.png'),
+                                    title: "Hint",
+                                    message:
+                                        mediumQuestions[currentQuestionIndex]
+                                            .hint,
+                                    imageWidth: 80, // Example width
+                                    imageHeight: 120,
+                                    actionText: "Ok", // Specify the action text
+                                    onActionPressed: () {
+                                      // Define your action here
+                                      Navigator.pop(context);
+                                    },
+                                    showCustomRow:
+                                        false, // Set to false to hide the custom row
+                                    customText:
+                                        "Custom Text", // Pass any string you want to display in the custom row
+                                    closeIcon: FontAwesomeIcons
+                                        .xmark, // Specify the close icon
+                                    onClosePressed: (BuildContext context) {
+                                      Navigator.pop(
+                                          context); // Close the dialog
+                                    },
+                                  );
+                                },
+                              );
                             },
                             iconData: FontAwesomeIcons.lightbulb,
                           ),
@@ -335,16 +441,4 @@ class _MediumLevelState extends State<MediumLevel> {
       ),
     );
   }
-
-  // void showToastMessage(String message) {
-  //   Fluttertoast.showToast(
-  //       msg: message, //message to show toast
-  //       toastLength: Toast.LENGTH_LONG, //duration for message to show
-  //       gravity: ToastGravity.CENTER, //where you want to show, top, bottom
-  //       timeInSecForIosWeb: 1, //for iOS only
-  //       //backgroundColor: Colors.red, //background Color for message
-  //       textColor: Colors.white, //message text color
-  //       fontSize: 16.0 //message font size
-  //       );
-  // }
 }

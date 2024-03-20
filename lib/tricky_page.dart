@@ -70,29 +70,38 @@ class _TrickyLevelState extends State<TrickyLevel> {
         });
       } else {
         // If all questions are answered, calculate the score and navigate to Playground
-        // Assuming all questions are of the same difficulty
         int playerScore = correctAnswersCount * levelMarks;
 
-        CustomDialog(
-          image: const AssetImage('images/victory_stars.png'),
-          title: "Well done",
-          message:
-              "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
-          imageWidth: 205, // Example width
-          imageHeight: 113,
-          actionText: "Yes",
-          onActionPressed: () {
-            // Define your action here
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Playground()),
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialog(
+              image: const AssetImage('images/victory_stars.png'),
+              title: "Well done",
+              message:
+                  "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
+              imageWidth: 205, // Example width
+              imageHeight: 113,
+              actionText: "Retry",
+              onActionPressed: () {
+                // Define your action here
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TrickyLevel()),
+                );
+              },
+              showCustomRow: true,
+              customText:
+                  "Results", // Pass any string you want to display in the custom row
+              closeIcon: FontAwesomeIcons.house, // Specify the close icon
+              onClosePressed: (BuildContext context) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Playground()));
+              },
             );
-          },
-          showSecondButton: true, // Assuming you want to show the second button
-          secondButtonText: "No", // Text for the second button
-          onSecondButtonPressed: () {
-            // Define the action for the second button here
-            Navigator.pop(context); // Example action: close the dialog
           },
         );
       }
@@ -137,7 +146,7 @@ class _TrickyLevelState extends State<TrickyLevel> {
                         image: const AssetImage('images/lose.png'),
                         title: "Quitting",
                         message:
-                            "Do you really want to quit playing and risk loosing your progress?",
+                            "Do you really want to quit playing and risk losing your progress?",
                         imageWidth: 120, // Example width
                         imageHeight: 111,
                         actionText: "Yes",
@@ -149,10 +158,14 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                 builder: (context) => const Playground()),
                           );
                         },
-                        showSecondButton: true,
-                        secondButtonText: "No", // Text for the second button
-                        onSecondButtonPressed: () {
-                          Navigator.pop(context);
+                        showCustomRow:
+                            true, // Set to true to show the custom row
+                        customText:
+                            "Custom Text", // Pass any string you want to display in the custom row
+                        closeIcon:
+                            FontAwesomeIcons.xmark, // Specify the close icon
+                        onClosePressed: (BuildContext context) {
+                          Navigator.pop(context); // Close the dialog
                         },
                       );
                     },
@@ -172,17 +185,19 @@ class _TrickyLevelState extends State<TrickyLevel> {
                         message: guideline,
                         imageWidth: 120, // Example width
                         imageHeight: 120,
+                        actionText: "Ok", // Specify the action text
                         onActionPressed: () {
                           // Define your action here
                           Navigator.pop(context);
                         },
-                        showSecondButton:
-                            false, // Assuming you want to show the second button
-                        secondButtonText: "No", // Text for the second button
-                        onSecondButtonPressed: () {
-                          // Define the action for the second button here
-                          Navigator.pop(
-                              context); // Example action: close the dialog
+                        showCustomRow:
+                            false, // Set to false to hide the custom row
+                        customText:
+                            "Custom Text", // Pass any string you want to display in the custom row
+                        closeIcon:
+                            FontAwesomeIcons.xmark, // Specify the close icon
+                        onClosePressed: (BuildContext context) {
+                          Navigator.pop(context); // Close the dialog
                         },
                       );
                     },
@@ -396,16 +411,20 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                             .hint,
                                     imageWidth: 80, // Example width
                                     imageHeight: 120,
+                                    actionText: "Ok", // Specify the action text
                                     onActionPressed: () {
                                       // Define your action here
                                       Navigator.pop(context);
                                     },
-                                    showSecondButton: false,
-                                    secondButtonText:
-                                        "No", // Text for the second button
-                                    onSecondButtonPressed: () {
-                                      // Define the action for the second button here
-                                      // Example action: close the dialog
+                                    showCustomRow:
+                                        false, // Set to false to hide the custom row
+                                    customText:
+                                        "Custom Text", // Pass any string you want to display in the custom row
+                                    closeIcon: FontAwesomeIcons
+                                        .xmark, // Specify the close icon
+                                    onClosePressed: (BuildContext context) {
+                                      Navigator.pop(
+                                          context); // Close the dialog
                                     },
                                   );
                                 },

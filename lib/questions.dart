@@ -14,9 +14,9 @@ class Question {
   // Static property for guidelines
   static const Map<Difficulty, String> guidelines = {
     Difficulty.easy:
-        'The list of words you were given all represent different English nouns. Your task is to create sentences using these nouns, ensuring that each word is used correctly according to its definition and context.',
+        'The list of words you were given share a common theme, except for one word which does not belong to the group. Your task is to identify the odd word and write it down.',
     Difficulty.medium:
-        'You have been presented with a series of jumbled letters that form English words. Your task is to rearrange the letters to form a different word or phrase. Take your time to mix and match the letters until you find the desired word. It could be an object, a place, or even an animal. Write down your answer and see if you can solve them all.',
+        'Your task is to rearrange the letters of the word you were given to form a different word or phrase. Mix the letters until you find the desired word. It could be an object, a place, or even an animal. Write down your answer and see if you can solve them all.',
     Difficulty.tricky:
         'The three words you were given have something in common. Your task is to find the common noun that relates to all them. For example, if the words are \'apple,\' \'banana,\' and \'orange,\' the common noun would be \'fruit.',
     Difficulty.tough:
@@ -512,4 +512,218 @@ List<Question> questions = [
     difficulty: Difficulty.tricky,
     hint: 'Think of a viscous liquid used in various applications.',
   ),
+  Question(
+    questionText: 'blue - pink - park - black',
+    answerText: 'park',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is colors.',
+  ),
+  Question(
+    questionText: 'apples - bananas - oranges - chairs',
+    answerText: 'chairs',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is fruits.',
+  ),
+  Question(
+    questionText: 'postman - doctor - hospital - secretary',
+    answerText: 'hospital',
+    difficulty: Difficulty.easy,
+    hint:
+        'The common theme in this question is professions that are associated with workplaces.',
+  ),
+  Question(
+    questionText: 'hungry - tired - happy - friend',
+    answerText: 'friend',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is emotions and states of being.',
+  ),
+  Question(
+    questionText: 'Friday - Sunday - March - Wednesday',
+    answerText: 'March',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is days of the week.',
+  ),
+  Question(
+    questionText: 'seven - first - eight - twenty',
+    answerText: 'twenty',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is numerical order.',
+  ),
+  Question(
+    questionText: 'German - Russia - England - Scotland',
+    answerText: 'German',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is nations or countries',
+  ),
+  Question(
+    questionText: 'February - November - Monday - July',
+    answerText: 'Monday',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is months in a year.',
+  ),
+  Question(
+    questionText: 'tree - fridge - table - bed',
+    answerText: 'fridge',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is items typically found indoors.',
+  ),
+  Question(
+    questionText: 'salad - carrot - tomato - cucumber',
+    answerText: 'salad',
+    difficulty: Difficulty.easy,
+    hint:
+        'The common theme in this question is vegetables found in a garden or kitchen.',
+  ),
+  Question(
+    questionText: 'second - third - nine - twelfth',
+    answerText: 'nine',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is ordinal counting.',
+  ),
+  Question(
+    questionText: 'orange - cherry - potato - kiwi',
+    answerText: 'potato',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is types of fruit.',
+  ),
+  Question(
+    questionText: 'pencil - eraser - ruler - school',
+    answerText: 'school',
+    difficulty: Difficulty.easy,
+    hint:
+        'The common theme in this question is items commonly found in a classroom.',
+  ),
+  Question(
+    questionText: 'sister - niece - father - aunt',
+    answerText: 'father',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is female family relatives.',
+  ),
+  Question(
+    questionText: 'grandfather - aunt - nephew - brother',
+    answerText: 'aunt',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is male family relatives.',
+  ),
+  Question(
+    questionText: 'windy - sunny - clock - freezing',
+    answerText: 'clock',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is weather conditions.',
+  ),
+  Question(
+    questionText: 'football - tennis - music - judo',
+    answerText: 'music',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is types of activities or sports.',
+  ),
+  Question(
+    questionText: 'red - jump - read - write',
+    answerText: 'red',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is verbs.',
+  ),
+  Question(
+    questionText: 'my - our - she - your',
+    answerText: 'she',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is possessive pronouns.',
+  ),
+  Question(
+    questionText: 'skirt - shirt - shoe - smart',
+    answerText: 'smart',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is clothing items.',
+  ),
+  Question(
+    questionText: 'car - dog - camel - horse',
+    answerText: 'car',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is animals.',
+  ),
+  Question(
+    questionText: 'arm - knee - finger - know',
+    answerText: 'know',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is body parts.',
+  ),
+  Question(
+    questionText: 'taxi - bus - underground - stop',
+    answerText: 'stop',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is modes of transportation.',
+  ),
+  Question(
+    questionText: 'ice-cream - cake - chips - biscuits',
+    answerText: 'chips',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is snacks or desserts.',
+  ),
+  Question(
+    questionText: 'bed - kitchen - bathroom - dining hall',
+    answerText: 'bed',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is rooms in a house.',
+  ),
+  Question(
+    questionText: 'cartoon - comedy - musical - office',
+    answerText: 'office',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is types of TV shows or movies.',
+  ),
+  Question(
+    questionText: 'long - short - old - door',
+    answerText: 'door',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is  descriptive words.',
+  ),
+  Question(
+    questionText: 'telephone - computer - radio - lamp',
+    answerText: 'lamp',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is electronic devices.',
+  ),
+  Question(
+    questionText: 'shivering - fever - headache - flu',
+    answerText: 'flu',
+    difficulty: Difficulty.easy,
+    hint:
+        'The common theme in this question is the common symptoms of diseases.',
+  ),
+  Question(
+    questionText: 'malaria - chickenpox - diarrhea - dinner',
+    answerText: 'dinner',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is diseases.',
+  ),
+  Question(
+    questionText: 'beef - chicken - pork - meatball',
+    answerText: 'meatball',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is types of meat.',
+  ),
+  Question(
+    questionText: 'bus - bicycle - airplane - apple',
+    answerText: 'apple',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is types of vehicles.',
+  ),
+  Question(
+    questionText: 'breakfast - lunch - meal - dinner',
+    answerText: 'meal',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is times of day for eating.',
+  ),
+  Question(
+    questionText: 'biology - carpet - geography - maths',
+    answerText: 'carpet',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is subjects studied in school.',
+  ),
+  Question(
+    questionText: 'blind - deaf - mute - brand',
+    answerText: 'brand',
+    difficulty: Difficulty.easy,
+    hint: 'The common theme in this question is disabilities.',
+  )
 ];

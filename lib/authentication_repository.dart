@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/dashboard.dart';
@@ -14,6 +13,9 @@ class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User? get authUser => _auth.currentUser;
+
   final ValueNotifier<String> currentScreen =
       ValueNotifier<String>('LoadingPage');
 
@@ -21,26 +23,8 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     FlutterNativeSplash.remove();
     screenRedirect();
-    // Your code here
   }
 
-  // Check if the user is authenticated and email is verified
-  // Future<void> screenRedirect() async {
-  //   final User? user = _auth.currentUser;
-
-  //   if (user != null) {
-  //     // await user.reload();
-  //     if (user.emailVerified) {
-  //       // Navigate to Playground screen if user is authenticated and email is verified
-  //       Get.offAll(() => const Playground());
-  //     } else {
-  //       // Navigate to VerifyEmailScreen if user is authenticated but email is not verified
-  //       Get.offAll(() => const VerifyEmailScreen());
-  //     }
-  //   } else {
-  //     Get.to(() => const StartingScreen());
-  //   }
-  // }
   Future<void> screenRedirect() async {
     print("screenRedirect started.");
     final User? user = _auth.currentUser;

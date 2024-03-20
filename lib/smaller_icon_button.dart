@@ -68,7 +68,7 @@ class SmallerFaIconButton extends StatelessWidget {
               child: Center(
                 child: FaIcon(
                   iconData,
-                  size: 20.0,
+                  size: 18.0,
                   color: iconColor,
                 ),
               ),

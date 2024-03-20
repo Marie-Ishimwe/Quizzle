@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quizzle/models/user.dart';
 import 'package:quizzle/statistics.dart';
 
 import 'min_icon_button.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final UserModel user;
+
+  const ProfilePage({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,6 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
         child: Column(
-          // mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -58,11 +60,10 @@ class ProfilePage extends StatelessWidget {
                     iconData: FontAwesomeIcons.xmark,
                     iconColor: const Color(0xFFFFF9DB),
                     buttonColor: const Color(0xFFF88F1E),
-                  )
+                  ),
                 ],
               ),
             ),
-            // const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(right: 10.0, left: 10.0),
               child: Container(
@@ -73,7 +74,6 @@ class ProfilePage extends StatelessWidget {
                       width: 10,
                       color: const Color(0xFFDE8627),
                     ),
-                    // Make rounded corners
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   children: [
@@ -101,10 +101,10 @@ class ProfilePage extends StatelessWidget {
                         letterSpacing: 0,
                       ),
                     ),
-                    const Text(
-                      "Monalisa",
+                    Text(
+                      user.nickname.toString(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF0A040A),
                         fontSize: 18,
                         fontFamily: 'StudioFeixenSansTRIAL',
@@ -113,10 +113,10 @@ class ProfilePage extends StatelessWidget {
                         letterSpacing: 0,
                       ),
                     ),
-                    const Text(
-                      "monalisa@gmail.com",
+                    Text(
+                      user.email.toString(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF0A040A),
                         fontSize: 18,
                         fontFamily: 'StudioFeixenSansTRIAL',
@@ -152,20 +152,20 @@ class ProfilePage extends StatelessWidget {
               number: "25",
             ),
             const SizedBox(height: 10),
-            const StatisticsContainer(
+            StatisticsContainer(
               imagePath: 'images/star.png',
               imageWidth: 41,
               imageHeight: 40,
               message: "First try wins",
-              number: "25",
+              number: user.wins.toString(),
             ),
             const SizedBox(height: 10),
-            const StatisticsContainer(
+            StatisticsContainer(
               imagePath: 'images/coins.png',
               imageWidth: 40,
               imageHeight: 39,
               message: "Coins",
-              number: "25",
+              number: user.coins.toString(),
             ),
             const SizedBox(height: 10),
             const StatisticsContainer(

@@ -7,8 +7,8 @@ import 'package:quizzle/firebase_options.dart';
 import 'package:quizzle/start_screen.dart';
 import 'package:quizzle/utils/popups/loading_page.dart';
 import 'package:quizzle/verify_email.dart';
-
 import 'authentication/controllers/signup/signup_controller.dart';
+import 'user_repository.dart';
 
 Future<void> _initializeApp() async {
   print("Initializing Firebase...");
@@ -22,6 +22,8 @@ Future<void> _initializeApp() async {
   print("Initializing SignUpController...");
   Get.put(SignUpController());
   print("SignUpController initialized.");
+  Get.put(UserRepository());
+  print("UserRepository initialized.");
 }
 
 Future main() async {
