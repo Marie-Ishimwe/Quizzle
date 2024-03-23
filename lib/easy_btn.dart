@@ -96,7 +96,7 @@ class CustomEasyButton extends StatelessWidget {
                     height: 88,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/dog_easy.png'),
+                          image: AssetImage('assets/images/dog_easy.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

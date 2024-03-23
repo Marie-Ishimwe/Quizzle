@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/authentication_repository.dart';
 import 'package:quizzle/models/user.dart';
@@ -6,6 +7,7 @@ import 'package:quizzle/models/user.dart';
 class UserRepository extends GetxController {
   // Static instance of the class
   static UserRepository get instance => Get.find();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   FirebaseFirestore getFirestore() {
     return _db;
@@ -86,6 +88,33 @@ class UserRepository extends GetxController {
     }
   }
 
+// Function to delete the currently authenticated user's document
+  // Future<void> deleteUserDocumentAndAuth(String userId) async {
+  //   try {
+  //     // Delete the user document
+  //     await FirebaseFirestore.instance.collection("Users").doc(userId).delete();
+
+  //     // Get the current user
+  //     User? currentUser = _auth.currentUser;
+
+  //     // Check if the current user is the one to be deleted
+  //     if (currentUser != null && currentUser.uid == userId) {
+  //       // Delete the user's authentication account
+  //       await currentUser.delete();
+  //     } else {
+  //       // Handle the case where the current user is not the one to be deleted
+  //       // This might involve using the Firebase Admin SDK on a server
+  //       throw Exception(
+  //           'Cannot delete user: The current user does not match the user to be deleted.');
+  //     }
+  //   } on FirebaseException catch (e) {
+  //     // Specific error handling for Firebase exceptions
+  //     throw Exception('Firebase error: ${e.message}');
+  //   } catch (e) {
+  //     // Catch-all for other exceptions
+  //     throw Exception('Unexpected error: $e');
+  //   }
+  // }
 // Function to delete the currently authenticated user's document
   Future<void> deleteUserDocument(String userId) async {
     try {

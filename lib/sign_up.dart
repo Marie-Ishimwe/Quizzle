@@ -6,7 +6,6 @@ import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/icon_button.dart';
 import 'package:quizzle/orange_btn.dart';
 import 'package:quizzle/sign_in.dart';
-import 'package:quizzle/start_screen.dart';
 import 'package:quizzle/utils/validators/validation.dart';
 
 class SignUp extends StatefulWidget {
@@ -27,7 +26,7 @@ class _SignUpState extends State<SignUp> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -55,11 +54,7 @@ class _SignUpState extends State<SignUp> {
                       CustomFaIconButton(
                         onTap: () {
                           // Navigation logic
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const StartingScreen()),
-                          );
+                          Navigator.pop(context);
                         },
                         iconData: FontAwesomeIcons.arrowLeft,
                         iconColor: const Color(0xFFFFF9DB),

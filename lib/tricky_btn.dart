@@ -97,7 +97,7 @@ class CustomTrickyButton extends StatelessWidget {
                     height: 96,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/duck.png'),
+                          image: AssetImage('assets/images/duck.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

@@ -47,7 +47,8 @@ class _AccountlessArenaState extends State<AccountlessArena> {
                         barrierDismissible: false,
                         builder: (BuildContext context) {
                           return CustomDialog(
-                            image: const AssetImage('images/attention.png'),
+                            image:
+                                const AssetImage('assets/images/attention.png'),
                             title: "Inaccessible",
                             message:
                                 "This feature is only accessible to registered users. To unlock profile, create an account today!",
@@ -88,7 +89,7 @@ class _AccountlessArenaState extends State<AccountlessArena> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),

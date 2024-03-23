@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import the services library
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/authentication_repository.dart';
@@ -27,9 +28,15 @@ Future<void> _initializeApp() async {
 }
 
 Future main() async {
+  // Ensure that the Flutter engine is initialized before using any services.
+  WidgetsFlutterBinding.ensureInitialized();
+
   // Await the initialization of Firebase and other services
   await _initializeApp();
   print("All initializations complete.");
+
+  // Hide the system UI
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
   runApp(const MyApp());
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:quizzle/category_description.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/easy_page.dart';
 import 'package:quizzle/sign_up.dart';
@@ -29,7 +28,7 @@ class Difficultiness extends StatelessWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomDialog(
-          image: const AssetImage('images/coins.png'),
+          image: const AssetImage('assets/images/coins.png'),
           title: "Subscribe",
           message:
               "This feature is only available to premium users.\n Upgrade your plan to keep your learning boundaryless!",
@@ -75,7 +74,7 @@ class Difficultiness extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -117,11 +116,7 @@ class Difficultiness extends StatelessWidget {
                     children: [
                       SmallerFaIconButton(
                         onTap: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CategoryDescription()));
+                          Navigator.pop(context);
                         },
                         iconData: FontAwesomeIcons.arrowLeft,
                       ),

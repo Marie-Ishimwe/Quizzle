@@ -4,6 +4,8 @@ import 'package:quizzle/game_specials/coins.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/heart_card.dart';
 import 'package:quizzle/hint_dart.dart';
+import 'package:quizzle/models/user.dart';
+import 'package:quizzle/user_repository.dart';
 import 'smaller_icon_button.dart';
 
 class Shop extends StatefulWidget {
@@ -20,7 +22,7 @@ class _ShopState extends State<Shop> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -59,7 +61,21 @@ class _ShopState extends State<Shop> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Coins(coinValue: '50000'),
+                      FutureBuilder<UserModel>(
+                        future: UserRepository.instance.fetchUserDetails(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            // Update userCoins with the fetched coins value
+                            return Coins(
+                                coinValue:
+                                    snapshot.data?.coins.toString() ?? '0');
+                          } else {
+                            return const Coins(
+                                coinValue: '0'); // Show 0 while loading
+                          }
+                        },
+                      ),
                       const Text(
                         'Shop',
                         textAlign: TextAlign.center,
@@ -90,34 +106,29 @@ class _ShopState extends State<Shop> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 5,
-                    left: 15.0,
+                    top: 7,
+                    left: 30.0,
                   ),
                   child: SizedBox(
                     width: double.infinity,
-                    child: GridView(
-                        // shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 7,
-                        ),
-                        children: const [
-                          HeartCard(),
-                          HintCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                          HeartCard(),
-                        ]),
+                    child: Center(
+                      child: GridView(
+                          // shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 5,
+                          ),
+                          children: [
+                            HeartCard(
+                              onPurchase: () {},
+                              heartsToAdd: 2,
+                              cost: 1000,
+                            ),
+                            const HintCard(),
+                          ]),
+                    ),
                   ),
                 ),
               ),

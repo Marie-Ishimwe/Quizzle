@@ -91,7 +91,7 @@ class Animals extends StatelessWidget {
                 height: 129,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/dog.png'),
+                      image: AssetImage('assets/images/dog.png'),
                       fit: BoxFit.fitWidth),
                 ))),
       ],

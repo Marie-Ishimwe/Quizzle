@@ -47,13 +47,16 @@ class _ArenaState extends State<Arena> {
                           padding: const EdgeInsets.all(2.0),
                           child: SmallerFaIconButton(
                             onTap: () {
-                              showDialog(
-                                  context: context,
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
                                   builder: (BuildContext context) {
                                     return ProfilePage(
                                       user: user,
                                     );
-                                  });
+                                  },
+                                ),
+                              );
                             },
                             iconData: FontAwesomeIcons.user,
                           ),
@@ -72,7 +75,7 @@ class _ArenaState extends State<Arena> {
               body: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("images/final_bg.png"),
+                    image: AssetImage("assets/images/final_bg.png"),
                     fit: BoxFit.cover,
                   ),
                 ),

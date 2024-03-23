@@ -15,7 +15,7 @@ class StartingScreen extends StatelessWidget {
       body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/final_bg.png"),
+              image: AssetImage("assets/images/final_bg.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -39,7 +39,7 @@ class StartingScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(
-                      "images/logo.png",
+                      "assets/images/logo.png",
                       width: size.width * .6,
                       height: 200,
                     ),

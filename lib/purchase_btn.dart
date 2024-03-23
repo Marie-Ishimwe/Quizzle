@@ -70,7 +70,7 @@ class PurchaseButton extends StatelessWidget {
                       height: 25,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('images/coin.png'),
+                            image: AssetImage('assets/images/coin.png'),
                             fit: BoxFit.fitWidth),
                       ),
                     ),

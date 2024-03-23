@@ -32,7 +32,7 @@ class Day4 extends StatelessWidget {
                   height: 85,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('images/box.png'),
+                        image: AssetImage('assets/images/box.png'),
                         fit: BoxFit.fitWidth),
                   ),
                 ),

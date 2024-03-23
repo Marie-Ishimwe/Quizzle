@@ -51,7 +51,7 @@ class Day1 extends StatelessWidget {
                       height: 65,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('images/coins_500.png'),
+                            image: AssetImage('assets/images/coins_500.png'),
                             fit: BoxFit.fitWidth),
                       ),
                     )

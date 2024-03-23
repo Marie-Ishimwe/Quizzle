@@ -19,7 +19,7 @@ class DailySpecialPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -58,8 +58,11 @@ class DailySpecialPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const SizedBox(
-                        width: 10,
+                      SmallerFaIconButton(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        iconData: FontAwesomeIcons.arrowLeft,
                       ),
                       const Text(
                         'Daily special',

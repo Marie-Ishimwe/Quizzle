@@ -27,7 +27,7 @@ class _NicknameScreenState extends State<NicknameScreen> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/nickname_bg.png"),
+              image: AssetImage("assets/images/nickname_bg.png"),
               fit: BoxFit.cover,
             ),
           ),

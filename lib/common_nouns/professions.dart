@@ -95,7 +95,7 @@ class Professions extends StatelessWidget {
                   height: 145,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('images/doctor.png'),
+                        image: AssetImage('assets/images/doctor.png'),
                         fit: BoxFit.fitWidth),
                   )),
             )),

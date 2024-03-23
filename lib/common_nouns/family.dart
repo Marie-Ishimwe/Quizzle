@@ -94,7 +94,7 @@ class Family extends StatelessWidget {
                 height: 88,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/family.png'),
+                      image: AssetImage('assets/images/family.png'),
                       fit: BoxFit.fitWidth),
                 ))),
       ],

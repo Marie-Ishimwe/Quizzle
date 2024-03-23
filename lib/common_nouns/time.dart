@@ -93,7 +93,7 @@ class TimeWidget extends StatelessWidget {
                 height: 128,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/time.png'),
+                      image: AssetImage('assets/images/time.png'),
                       fit: BoxFit.fitWidth),
                 ))),
       ],

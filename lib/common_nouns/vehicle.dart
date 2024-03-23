@@ -91,7 +91,7 @@ class Vehicles extends StatelessWidget {
                 height: 100,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/car.png'),
+                      image: AssetImage('assets/images/car.png'),
                       fit: BoxFit.fitWidth),
                 ))),
       ],

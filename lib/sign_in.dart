@@ -5,8 +5,6 @@ import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/icon_button.dart';
 import 'package:quizzle/orange_btn.dart';
 import 'package:quizzle/sign_up.dart';
-import 'package:quizzle/start_screen.dart';
-
 import 'authentication/controllers/login/login_controller.dart';
 import 'utils/validators/validation.dart';
 
@@ -28,7 +26,7 @@ class _SignInState extends State<SignIn> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -56,11 +54,7 @@ class _SignInState extends State<SignIn> {
                       CustomFaIconButton(
                         onTap: () {
                           // Navigation logic
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const StartingScreen()),
-                          );
+                          Navigator.pop(context);
                         },
                         iconData: FontAwesomeIcons.arrowLeft,
                         iconColor: const Color(0xFFFFF9DB),

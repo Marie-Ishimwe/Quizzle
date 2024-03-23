@@ -70,7 +70,7 @@ class Wins extends StatelessWidget {
               height: 40.0,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/star.png'),
+                  image: AssetImage('assets/images/star.png'),
                   fit: BoxFit.cover,
                 ),
               ),

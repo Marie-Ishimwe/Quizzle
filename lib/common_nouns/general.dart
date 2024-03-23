@@ -99,7 +99,7 @@ class General extends StatelessWidget {
                   height: 136,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('images/bear.png'),
+                        image: AssetImage('assets/images/bear.png'),
                         fit: BoxFit.fitWidth),
                   ))),
         ],

@@ -80,7 +80,7 @@ class _ChallengeDayOneState extends State<ChallengeDayOne> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -300,7 +300,7 @@ class _ChallengeDayOneState extends State<ChallengeDayOne> {
                             height: 180,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('images/bonus.png'),
+                                image: AssetImage('assets/images/bonus.png'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),

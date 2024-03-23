@@ -96,7 +96,7 @@ class CustomMediumButton extends StatelessWidget {
                     height: 97,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/quirrel.png'),
+                          image: AssetImage('assets/images/quirrel.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

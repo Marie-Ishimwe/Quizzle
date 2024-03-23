@@ -77,7 +77,7 @@ class _MediumLevelState extends State<MediumLevel> {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return CustomDialog(
-              image: const AssetImage('images/victory_stars.png'),
+              image: const AssetImage('assets/images/victory_stars.png'),
               title: "Well done",
               message:
                   "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
@@ -117,7 +117,7 @@ class _MediumLevelState extends State<MediumLevel> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/final_bg.png"),
+            image: AssetImage("assets/images/final_bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -143,7 +143,7 @@ class _MediumLevelState extends State<MediumLevel> {
                     barrierDismissible: false,
                     builder: (BuildContext context) {
                       return CustomDialog(
-                        image: const AssetImage('images/lose.png'),
+                        image: const AssetImage('assets/images/lose.png'),
                         title: "Quitting",
                         message:
                             "Do you really want to quit playing and risk losing your progress?",
@@ -180,7 +180,7 @@ class _MediumLevelState extends State<MediumLevel> {
                     barrierDismissible: false,
                     builder: (BuildContext context) {
                       return CustomDialog(
-                        image: const AssetImage('images/goal.png'),
+                        image: const AssetImage('assets/images/goal.png'),
                         title: "Guidelines",
                         message: guideline,
                         imageWidth: 120, // Example width
@@ -401,7 +401,8 @@ class _MediumLevelState extends State<MediumLevel> {
                                 barrierDismissible: false,
                                 builder: (BuildContext context) {
                                   return CustomDialog(
-                                    image: const AssetImage('images/bulb.png'),
+                                    image: const AssetImage(
+                                        'assets/images/bulb.png'),
                                     title: "Hint",
                                     message:
                                         mediumQuestions[currentQuestionIndex]

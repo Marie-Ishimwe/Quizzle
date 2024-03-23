@@ -46,11 +46,11 @@ class HintCard extends StatelessWidget {
                       height: 5,
                     ),
                     Container(
-                      width: 47,
-                      height: 65,
+                      width: 45,
+                      height: 62,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('images/bulb.png'),
+                            image: AssetImage('assets/images/bulb.png'),
                             fit: BoxFit.fitWidth),
                       ),
                     )

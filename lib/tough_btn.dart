@@ -96,7 +96,7 @@ class CustomToughButton extends StatelessWidget {
                     height: 93,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/dolphin.png'),
+                          image: AssetImage('assets/images/dolphin.png'),
                           fit: BoxFit.fitWidth),
                     ))),
           ],

@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:quizzle/purchase_btn.dart';
 
 class HeartCard extends StatelessWidget {
-  const HeartCard({super.key});
+  final int heartsToAdd;
+  final int cost;
+  final VoidCallback onPurchase; // Added callback for purchase
+
+  const HeartCard({
+    super.key,
+    required this.heartsToAdd,
+    required this.cost,
+    required this.onPurchase, // Ensure to pass this callback from the parent
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +38,17 @@ class HeartCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
-                    '+2',
+                  Text(
+                    '+$heartsToAdd',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Color.fromRGBO(0, 0, 0, 1),
-                        fontFamily: 'StudioFeixenSansTRIAL',
-                        fontSize: 20,
-                        letterSpacing: 0,
-                        fontWeight: FontWeight.w900,
-                        height: 1.2),
+                    style: const TextStyle(
+                      color: Color.fromRGBO(0, 0, 0, 1),
+                      fontFamily: 'StudioFeixenSansTRIAL',
+                      fontSize: 20,
+                      letterSpacing: 0,
+                      fontWeight: FontWeight.w900,
+                      height: 1.2,
+                    ),
                   ),
                   const SizedBox(
                     height: 5,
@@ -48,16 +58,17 @@ class HeartCard extends StatelessWidget {
                     height: 65,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('images/heart.png'),
-                          fit: BoxFit.fitWidth),
+                        image: AssetImage('assets/images/heart.png'),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           ),
           Positioned(
-            top: 105,
+            top: 107,
             left: 0,
             child: Container(
               width: 140,
@@ -86,7 +97,10 @@ class HeartCard extends StatelessWidget {
                 color: Color(0xFFF2922A),
               ),
               child: Center(
-                child: PurchaseButton(buttonText: '1,000', onPressed: () {}),
+                child: PurchaseButton(
+                  buttonText: cost.toString(),
+                  onPressed: onPurchase, // Use the passed callback
+                ),
               ),
             ),
           ),

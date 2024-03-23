@@ -62,7 +62,7 @@ class Coins extends StatelessWidget {
               height: 35.0,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/coin.png'),
+                  image: AssetImage('assets/images/coin.png'),
                   fit: BoxFit.cover,
                 ),
               ),

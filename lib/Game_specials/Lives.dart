@@ -59,7 +59,7 @@ class Lives extends StatelessWidget {
               height: 35.0,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/heart.png'),
+                  image: AssetImage('assets/images/heart.png'),
                   fit: BoxFit.cover,
                 ),
               ),
