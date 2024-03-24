@@ -19,6 +19,9 @@ class AuthenticationRepository extends GetxController {
   final ValueNotifier<String> currentScreen =
       ValueNotifier<String>('LoadingPage');
 
+  // Add a ValueNotifier for tracking Hive initialization status
+  final ValueNotifier<bool> isHiveInitialized = ValueNotifier<bool>(false);
+
   @override
   void onReady() {
     FlutterNativeSplash.remove();

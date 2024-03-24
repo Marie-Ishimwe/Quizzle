@@ -46,8 +46,8 @@ class Day3 extends StatelessWidget {
                       height: 5,
                     ),
                     Container(
-                      width: 73,
-                      height: 65,
+                      width: 70,
+                      height: 62,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage('assets/images/heart.png'),

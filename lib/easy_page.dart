@@ -1,19 +1,18 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:quizzle/authentication_repository.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/dialog.dart';
 import 'package:quizzle/header.dart';
 import 'package:quizzle/user_repository.dart';
+import 'models/user_data.dart';
 import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
-
-// import 'package:fluttertoast/fluttertoast.dart';
 
 class EasyLevel extends StatefulWidget {
   const EasyLevel({super.key});
@@ -30,12 +29,22 @@ class _EasyLevelState extends State<EasyLevel> {
   int correctAnswersCount = 0; // Initialize count of correct answers
   int levelMarks = Question.getQuestionWeight(Difficulty.easy);
   int hintCount = 0;
-  int lives = 25;
+  late Box<UserData> box;
   Timer? liveTimer;
+  UserData? userData;
 
   @override
   void initState() {
     super.initState();
+    print("Before accessing Hive box");
+    box = Hive.box<UserData>('userDataBox');
+    print("After accessing Hive box");
+    userData = box.get('userData');
+    if (userData == null) {
+      userData = UserData();
+      box.put('userData', userData!);
+    }
+
     // Shuffle and select 10 medium-level questions
     easyQuestions = List.from(
         questions.where((question) => question.difficulty == Difficulty.easy));
@@ -43,15 +52,15 @@ class _EasyLevelState extends State<EasyLevel> {
     easyQuestions = easyQuestions.take(2).toList();
     liveTimer = Timer.periodic(const Duration(minutes: 30), (timer) {
       setState(() {
-        lives++;
+        userData!.lives++;
       });
-      // Optionally, show a notification or message to the player
     });
   }
 
   @override
   void dispose() {
     liveTimer?.cancel(); // Cancel the timer when the widget is disposed
+    box.close();
     super.dispose();
   }
 
@@ -84,14 +93,15 @@ class _EasyLevelState extends State<EasyLevel> {
           'The correct answer was: $correctAnswer',
         ); // Decrease lives
         setState(() {
-          lives--;
+          userData!.lives--;
         });
       }
-      if (currentQuestionIndex + 1 < easyQuestions.length && lives > 0) {
+      if (currentQuestionIndex + 1 < easyQuestions.length &&
+          userData!.lives > 0) {
         setState(() {
           currentQuestionIndex++;
         });
-      } else if (lives <= 0) {
+      } else if (userData!.lives <= 0) {
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -175,7 +185,9 @@ class _EasyLevelState extends State<EasyLevel> {
           // Update the user's coins and wins in Firestore
           Map<String, dynamic> updateData = {
             'coins': newTotalCoins, // Update the coins field with the new total
-            'wins': correctAnswersCount == 2 ? currentWins + 1 : currentWins,
+            'wins': correctAnswersCount == easyQuestions.length
+                ? currentWins + 1
+                : currentWins,
             // Update the wins field if all questions are answered correctly
             'hints': currentHintCount + hintCount,
           };
@@ -220,9 +232,12 @@ class _EasyLevelState extends State<EasyLevel> {
             print('Failed to update coins: $e');
           }
         } else {
-          // Handle the case where the user is not authenticated
-          print('User is not authenticated.');
-          // You might want to show a dialog or navigate to a login screen here
+          userData!.coins += correctAnswersCount * levelMarks;
+          userData?.wins = correctAnswersCount == easyQuestions.length
+              ? userData!.wins + 1
+              : userData!.wins;
+          userData!.hints += hintCount;
+          box.put('userData', userData!);
         }
       }
       answerController.clear();

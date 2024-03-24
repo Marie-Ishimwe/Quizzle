@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/difficulty_page.dart';
 import 'package:quizzle/green_btn.dart';
 import 'package:quizzle/green_smaller_icon.dart';
@@ -44,7 +45,11 @@ class CategoryDescription extends StatelessWidget {
                     SmallerGreenIconButton(
                       onTap: () {
                         // Navigation logic
-                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Playground()),
+                        );
                       },
                       iconData: FontAwesomeIcons.arrowLeft,
                       iconColor: const Color(0xFFFFF9DB),

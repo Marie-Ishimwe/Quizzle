@@ -54,7 +54,11 @@ class _SignInState extends State<SignIn> {
                       CustomFaIconButton(
                         onTap: () {
                           // Navigation logic
-                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SignUp()),
+                          );
                         },
                         iconData: FontAwesomeIcons.arrowLeft,
                         iconColor: const Color(0xFFFFF9DB),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import the services library
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:quizzle/authentication_repository.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/firebase_options.dart';
+import 'package:quizzle/models/user_data.dart';
 import 'package:quizzle/start_screen.dart';
 import 'package:quizzle/utils/popups/loading_page.dart';
 import 'package:quizzle/verify_email.dart';
@@ -30,6 +32,17 @@ Future<void> _initializeApp() async {
 Future main() async {
   // Ensure that the Flutter engine is initialized before using any services.
   WidgetsFlutterBinding.ensureInitialized();
+
+  //Initialize hive
+  await Hive.initFlutter();
+  print("Hive initialized.");
+
+  // Register Hive adapters
+  Hive.registerAdapter(UserDataAdapter());
+
+  // Open Hive boxes
+  await Hive.openBox<UserData>('userDataBox');
+  print("Hive Box opened.");
 
   // Await the initialization of Firebase and other services
   await _initializeApp();

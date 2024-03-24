@@ -46,8 +46,8 @@ class Day5 extends StatelessWidget {
                       height: 5,
                     ),
                     Container(
-                      width: 47,
-                      height: 65,
+                      width: 45,
+                      height: 63,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage('assets/images/bulb.png'),
