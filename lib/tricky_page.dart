@@ -1,13 +1,18 @@
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:quizzle/authentication_repository.dart';
 import 'package:quizzle/dashboard.dart';
+import 'package:quizzle/dialog.dart';
 import 'package:quizzle/header.dart';
-import 'dialog.dart';
+import 'package:quizzle/user_repository.dart';
+import 'models/user_data.dart';
 import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 
 class TrickyLevel extends StatefulWidget {
   const TrickyLevel({super.key});
@@ -23,27 +28,51 @@ class _TrickyLevelState extends State<TrickyLevel> {
   late List<Question> trickyQuestions;
   int correctAnswersCount = 0; // Initialize count of correct answers
   int levelMarks = Question.getQuestionWeight(Difficulty.tricky);
+  int hintCount = 0;
+  late Box<UserData> box;
+  Timer? liveTimer;
+  UserData? userData;
 
   @override
   void initState() {
     super.initState();
+    print("Before accessing Hive box");
+    box = Hive.box<UserData>('userDataBox');
+    print("After accessing Hive box");
+    userData = box.get('userData');
+    if (userData == null) {
+      userData = UserData();
+      box.put('userData', userData!);
+    }
+
     // Shuffle and select 10 medium-level questions
     trickyQuestions = List.from(questions
         .where((question) => question.difficulty == Difficulty.tricky));
     trickyQuestions.shuffle();
     trickyQuestions = trickyQuestions.take(10).toList();
+    liveTimer = Timer.periodic(const Duration(minutes: 30), (timer) {
+      setState(() {
+        userData!.lives++;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    liveTimer?.cancel(); // Cancel the timer when the widget is disposed
+    box.close();
+    super.dispose();
   }
 
   void submitAnswer() async {
     if (formKey.currentState!.validate()) {
-      // Validate answer
       final userAnswer = answerController.text.trim();
       final correctAnswer =
           trickyQuestions[currentQuestionIndex].answerText.toLowerCase();
+
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
         await showCustomSnackBar(
-          context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Correct!',
@@ -56,22 +85,50 @@ class _TrickyLevelState extends State<TrickyLevel> {
       } else {
         // Show incorrect message
         await showCustomSnackBar(
-          context,
           Colors.red,
           FontAwesomeIcons.circleXmark,
           'Incorrect!',
           'The correct answer was: $correctAnswer',
-        );
+        ); // Decrease lives
+        setState(() {
+          userData!.lives--;
+        });
       }
-      // Move to the next question if available
-      if (currentQuestionIndex + 1 < trickyQuestions.length) {
+      if (currentQuestionIndex + 1 < trickyQuestions.length &&
+          userData!.lives > 0) {
         setState(() {
           currentQuestionIndex++;
         });
+      } else if (userData!.lives <= 0) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialog(
+              image: const AssetImage('assets/images/bulb.png'),
+              title: "Game over",
+              message:
+                  "You have runout of lives! You will have to wait for some time before you can play again!",
+              imageWidth: 80, // Example width
+              imageHeight: 120,
+              actionText: "Playground", // Specify the action text
+              onActionPressed: () {
+                // Define your action here
+                Navigator.pop(context);
+              },
+              showCustomRow: false, // Set to false to hide the custom row
+              customText:
+                  "Custom Text", // Pass any string you want to display in the custom row
+              closeIcon: FontAwesomeIcons.xmark, // Specify the close icon
+              onClosePressed: (BuildContext context) {
+                Navigator.pop(context); // Close the dialog
+              },
+            );
+          },
+        );
       } else {
-        // If all questions are answered, calculate the score and navigate to Playground
         int playerScore = correctAnswersCount * levelMarks;
-
+        print(hintCount);
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -80,7 +137,7 @@ class _TrickyLevelState extends State<TrickyLevel> {
               image: const AssetImage('assets/images/victory_stars.png'),
               title: "Well done",
               message:
-                  "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
+                  "Correct answers: $correctAnswersCount\nIncorrect answers: ${trickyQuestions.length - correctAnswersCount}\nCoins earned: $playerScore",
               imageWidth: 205, // Example width
               imageHeight: 113,
               actionText: "Retry",
@@ -104,8 +161,83 @@ class _TrickyLevelState extends State<TrickyLevel> {
             );
           },
         );
+
+        // Check if the user is authenticated
+        if (AuthenticationRepository.instance.authUser?.uid != null) {
+          // Fetch the user's current coin count
+          DocumentSnapshot userDoc = await UserRepository.instance
+              .getFirestore()
+              .collection("Users")
+              .doc(AuthenticationRepository.instance.authUser?.uid)
+              .get();
+          int currentCoins =
+              (userDoc.data() as Map<String, dynamic>)['coins'] ?? 0;
+          int currentWins =
+              (userDoc.data() as Map<String, dynamic>)['wins'] ?? 0;
+          int currentHintCount =
+              (userDoc.data() as Map<String, dynamic>)['hints'] ?? 0;
+
+          // Calculate the new total coins
+          int newTotalCoins = currentCoins + playerScore;
+
+          // Update the user's coins and wins in Firestore
+          Map<String, dynamic> updateData = {
+            'coins': newTotalCoins, // Update the coins field with the new total
+            'wins': correctAnswersCount == trickyQuestions.length
+                ? currentWins + 1
+                : currentWins,
+            // Update the wins field if all questions are answered correctly
+            'hints': currentHintCount + hintCount,
+          };
+
+          try {
+            await UserRepository.instance.updateSingleAttribute(updateData);
+            // Navigate to the next screen or show a dialog after updating the coins
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return CustomDialog(
+                  image: const AssetImage('assets/images/victory_stars.png'),
+                  title: "Well done",
+                  message:
+                      "Correct answers: $correctAnswersCount\nIncorrect answers: ${2 - correctAnswersCount}\nCoins earned: $playerScore",
+                  imageWidth: 205,
+                  imageHeight: 113,
+                  actionText: "Retry",
+                  onActionPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TrickyLevel()),
+                    );
+                  },
+                  showCustomRow: true,
+                  customText: "Results",
+                  closeIcon: FontAwesomeIcons.house,
+                  onClosePressed: (BuildContext context) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Playground(),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } catch (e) {
+            print('Failed to update coins: $e');
+          }
+        } else {
+          userData!.coins += correctAnswersCount * levelMarks;
+          userData?.wins = correctAnswersCount == trickyQuestions.length
+              ? userData!.wins + 1
+              : userData!.wins;
+          userData!.hints += hintCount;
+          box.put('userData', userData!);
+        }
       }
-      // Clear the text field
       answerController.clear();
     }
   }
@@ -231,8 +363,6 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                   begin: Alignment(-1, 6.123234262925839e-17),
                                   end: Alignment(6.123234262925839e-17, 1),
                                   colors: [
-                                    // Color.fromRGBO(
-                                    //     238, 172, 108, 0.5600000143051147),
                                     Color.fromRGBO(
                                         238, 172, 108, 0.8600000143051147),
                                     Color.fromRGBO(247, 127, 8, 1)
@@ -373,9 +503,9 @@ class _TrickyLevelState extends State<TrickyLevel> {
                                 ),
                                 CustomOrangeButton(
                                   buttonText: "Submit",
+                                  onPressed: submitAnswer,
                                   buttonWidth:
                                       MediaQuery.of(context).size.width * 0.7,
-                                  onPressed: submitAnswer,
                                 ),
                               ],
                             ),
@@ -395,43 +525,48 @@ class _TrickyLevelState extends State<TrickyLevel> {
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: SmallerFaIconButton(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return CustomDialog(
-                                    image: const AssetImage(
-                                        'assets/images/bulb.png'),
-                                    title: "Hint",
-                                    message:
-                                        trickyQuestions[currentQuestionIndex]
-                                            .hint,
-                                    imageWidth: 80, // Example width
-                                    imageHeight: 120,
-                                    actionText: "Ok", // Specify the action text
-                                    onActionPressed: () {
-                                      // Define your action here
-                                      Navigator.pop(context);
-                                    },
-                                    showCustomRow:
-                                        false, // Set to false to hide the custom row
-                                    customText:
-                                        "Custom Text", // Pass any string you want to display in the custom row
-                                    closeIcon: FontAwesomeIcons
-                                        .xmark, // Specify the close icon
-                                    onClosePressed: (BuildContext context) {
-                                      Navigator.pop(
-                                          context); // Close the dialog
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                            iconData: FontAwesomeIcons.lightbulb,
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: SmallerFaIconButton(
+                              onTap: () {
+                                hintCount++;
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return CustomDialog(
+                                      image: const AssetImage(
+                                          'assets/images/bulb.png'),
+                                      title: "Hint",
+                                      message:
+                                          trickyQuestions[currentQuestionIndex]
+                                              .hint,
+                                      imageWidth: 80, // Example width
+                                      imageHeight: 120,
+                                      actionText:
+                                          "Ok", // Specify the action text
+                                      onActionPressed: () {
+                                        // Define your action here
+                                        Navigator.pop(context);
+                                      },
+                                      showCustomRow:
+                                          false, // Set to false to hide the custom row
+                                      customText:
+                                          "Custom Text", // Pass any string you want to display in the custom row
+                                      closeIcon: FontAwesomeIcons
+                                          .xmark, // Specify the close icon
+                                      onClosePressed: (BuildContext context) {
+                                        Navigator.pop(
+                                            context); // Close the dialog
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                              iconData: FontAwesomeIcons.lightbulb,
+                            ),
                           ),
                         ),
                       ],

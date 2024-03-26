@@ -40,7 +40,6 @@ class _ChallengeDayOneState extends State<ChallengeDayOne> {
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
         showCustomSnackBar(
-          context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Correct!',
@@ -49,7 +48,6 @@ class _ChallengeDayOneState extends State<ChallengeDayOne> {
       } else {
         // Show incorrect message
         showCustomSnackBar(
-          context,
           Colors.red,
           FontAwesomeIcons.circleXmark,
           'Incorrect!',

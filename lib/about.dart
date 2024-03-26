@@ -22,7 +22,7 @@ class AboutPage extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(51, 0, 0, 56),
+                const Color.fromARGB(51, 0, 0, 56),
                 Colors.black.withOpacity(0.6)
               ],
               begin: const Alignment(0.00, -1.00),

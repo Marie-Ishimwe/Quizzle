@@ -55,7 +55,7 @@ class _ArenaState extends State<Arena> {
             // Update local storage with fetched data
             if (user.accountType == 'premium') {
               userData =
-                  UserData(lives: -1, wins: user.wins, coins: user.coins);
+                  UserData(lives: 100, wins: user.wins, coins: user.coins);
               box.put('userData', userData);
             } else if (user.accountType == 'freemium') {
               userData =

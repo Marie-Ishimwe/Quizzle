@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:quizzle/authentication_repository.dart';
-import '../../../dashboard.dart';
 import '../../../snackbar.dart';
 
 class VerifyEmailController extends GetxController {
@@ -14,6 +13,7 @@ class VerifyEmailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    sendEmailVerification();
     setTimerForAutoRedirect();
   }
 
@@ -24,11 +24,10 @@ class VerifyEmailController extends GetxController {
   }
 
   // Send Email Verification Link
-  Future<void> sendEmailVerification(BuildContext context) async {
+  Future<void> sendEmailVerification() async {
     try {
       await AuthenticationRepository.instance.sendEmailVerification();
       showCustomSnackBar(
-        context,
         Colors.green,
         FontAwesomeIcons.circleCheck,
         'Email sent!',
@@ -36,7 +35,6 @@ class VerifyEmailController extends GetxController {
       );
     } catch (e) {
       showCustomSnackBar(
-        context,
         Colors.red,
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',
@@ -50,23 +48,29 @@ class VerifyEmailController extends GetxController {
     _autoRedirectTimer = Timer.periodic(
       const Duration(seconds: 2),
       (timer) async {
+        await FirebaseAuth.instance.currentUser?.reload();
         final user = FirebaseAuth.instance.currentUser;
         if (user?.emailVerified ?? false) {
           timer.cancel();
-          Get.off(() => const Playground());
+          // Get.off(() => const Playground());
+          Get.off(
+            () => AuthenticationRepository.instance.screenRedirect(),
+          );
         }
       },
     );
   }
 
   ///Manually Checking if Email is verified
-  void checkEmailVerificationStatus(BuildContext context) {
+  void checkEmailVerificationStatus() {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null && currentUser.emailVerified) {
-      Get.off(() => const Playground());
+      // Get.off(() => const Playground());
+      Get.off(
+        () => AuthenticationRepository.instance.screenRedirect(),
+      );
     } else {
       showCustomSnackBar(
-        context,
         Colors.red,
         FontAwesomeIcons.triangleExclamation,
         'Email not verified',

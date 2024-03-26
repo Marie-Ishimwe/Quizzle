@@ -1,13 +1,18 @@
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:quizzle/authentication_repository.dart';
 import 'package:quizzle/dashboard.dart';
 import 'package:quizzle/dialog.dart';
 import 'package:quizzle/header.dart';
+import 'package:quizzle/user_repository.dart';
+import 'models/user_data.dart';
 import 'smaller_icon_button.dart';
 import 'orange_btn.dart';
 import 'questions.dart';
 import 'snackbar.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 
 class ToughLevel extends StatefulWidget {
   const ToughLevel({super.key});
@@ -23,27 +28,51 @@ class _ToughLevelState extends State<ToughLevel> {
   late List<Question> toughQuestions;
   int correctAnswersCount = 0; // Initialize count of correct answers
   int levelMarks = Question.getQuestionWeight(Difficulty.tough);
+  int hintCount = 0;
+  late Box<UserData> box;
+  Timer? liveTimer;
+  UserData? userData;
 
   @override
   void initState() {
     super.initState();
+    print("Before accessing Hive box");
+    box = Hive.box<UserData>('userDataBox');
+    print("After accessing Hive box");
+    userData = box.get('userData');
+    if (userData == null) {
+      userData = UserData();
+      box.put('userData', userData!);
+    }
+
     // Shuffle and select 10 medium-level questions
     toughQuestions = List.from(
         questions.where((question) => question.difficulty == Difficulty.tough));
     toughQuestions.shuffle();
     toughQuestions = toughQuestions.take(10).toList();
+    liveTimer = Timer.periodic(const Duration(minutes: 30), (timer) {
+      setState(() {
+        userData!.lives++;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    liveTimer?.cancel(); // Cancel the timer when the widget is disposed
+    box.close();
+    super.dispose();
   }
 
   void submitAnswer() async {
     if (formKey.currentState!.validate()) {
-      // Validate answer
       final userAnswer = answerController.text.trim();
       final correctAnswer =
           toughQuestions[currentQuestionIndex].answerText.toLowerCase();
+
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
-        showCustomSnackBar(
-          context,
+        await showCustomSnackBar(
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Correct!',
@@ -56,22 +85,50 @@ class _ToughLevelState extends State<ToughLevel> {
       } else {
         // Show incorrect message
         await showCustomSnackBar(
-          context,
           Colors.red,
           FontAwesomeIcons.circleXmark,
           'Incorrect!',
           'The correct answer was: $correctAnswer',
-        );
+        ); // Decrease lives
+        setState(() {
+          userData!.lives--;
+        });
       }
-      // Move to the next question if available
-      if (currentQuestionIndex + 1 < toughQuestions.length) {
+      if (currentQuestionIndex + 1 < toughQuestions.length &&
+          userData!.lives > 0) {
         setState(() {
           currentQuestionIndex++;
         });
+      } else if (userData!.lives <= 0) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return CustomDialog(
+              image: const AssetImage('assets/images/bulb.png'),
+              title: "Game over",
+              message:
+                  "You have runout of lives! You will have to wait for some time before you can play again!",
+              imageWidth: 80, // Example width
+              imageHeight: 120,
+              actionText: "Playground", // Specify the action text
+              onActionPressed: () {
+                // Define your action here
+                Navigator.pop(context);
+              },
+              showCustomRow: false, // Set to false to hide the custom row
+              customText:
+                  "Custom Text", // Pass any string you want to display in the custom row
+              closeIcon: FontAwesomeIcons.xmark, // Specify the close icon
+              onClosePressed: (BuildContext context) {
+                Navigator.pop(context); // Close the dialog
+              },
+            );
+          },
+        );
       } else {
-        // If all questions are answered, navigate to Playground
         int playerScore = correctAnswersCount * levelMarks;
-
+        print(hintCount);
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -80,7 +137,7 @@ class _ToughLevelState extends State<ToughLevel> {
               image: const AssetImage('assets/images/victory_stars.png'),
               title: "Well done",
               message:
-                  "Correct answers: $correctAnswersCount\nIncorrect answers: ${10 - correctAnswersCount}\nCoins earned: $playerScore",
+                  "Correct answers: $correctAnswersCount\nIncorrect answers: ${toughQuestions.length - correctAnswersCount}\nCoins earned: $playerScore",
               imageWidth: 205, // Example width
               imageHeight: 113,
               actionText: "Retry",
@@ -104,8 +161,83 @@ class _ToughLevelState extends State<ToughLevel> {
             );
           },
         );
+
+        // Check if the user is authenticated
+        if (AuthenticationRepository.instance.authUser?.uid != null) {
+          // Fetch the user's current coin count
+          DocumentSnapshot userDoc = await UserRepository.instance
+              .getFirestore()
+              .collection("Users")
+              .doc(AuthenticationRepository.instance.authUser?.uid)
+              .get();
+          int currentCoins =
+              (userDoc.data() as Map<String, dynamic>)['coins'] ?? 0;
+          int currentWins =
+              (userDoc.data() as Map<String, dynamic>)['wins'] ?? 0;
+          int currentHintCount =
+              (userDoc.data() as Map<String, dynamic>)['hints'] ?? 0;
+
+          // Calculate the new total coins
+          int newTotalCoins = currentCoins + playerScore;
+
+          // Update the user's coins and wins in Firestore
+          Map<String, dynamic> updateData = {
+            'coins': newTotalCoins, // Update the coins field with the new total
+            'wins': correctAnswersCount == toughQuestions.length
+                ? currentWins + 1
+                : currentWins,
+            // Update the wins field if all questions are answered correctly
+            'hints': currentHintCount + hintCount,
+          };
+
+          try {
+            await UserRepository.instance.updateSingleAttribute(updateData);
+            // Navigate to the next screen or show a dialog after updating the coins
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return CustomDialog(
+                  image: const AssetImage('assets/images/victory_stars.png'),
+                  title: "Well done",
+                  message:
+                      "Correct answers: $correctAnswersCount\nIncorrect answers: ${2 - correctAnswersCount}\nCoins earned: $playerScore",
+                  imageWidth: 205,
+                  imageHeight: 113,
+                  actionText: "Retry",
+                  onActionPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ToughLevel()),
+                    );
+                  },
+                  showCustomRow: true,
+                  customText: "Results",
+                  closeIcon: FontAwesomeIcons.house,
+                  onClosePressed: (BuildContext context) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Playground(),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          } catch (e) {
+            print('Failed to update coins: $e');
+          }
+        } else {
+          userData!.coins += correctAnswersCount * levelMarks;
+          userData?.wins = correctAnswersCount == toughQuestions.length
+              ? userData!.wins + 1
+              : userData!.wins;
+          userData!.hints += hintCount;
+          box.put('userData', userData!);
+        }
       }
-      // Clear the text field
       answerController.clear();
     }
   }
@@ -255,6 +387,10 @@ class _ToughLevelState extends State<ToughLevel> {
                                         TextSpan(
                                           text:
                                               '${toughQuestions[currentQuestionIndex].questionText} ',
+                                          style: const TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -363,9 +499,9 @@ class _ToughLevelState extends State<ToughLevel> {
                                 ),
                                 CustomOrangeButton(
                                   buttonText: "Submit",
+                                  onPressed: submitAnswer,
                                   buttonWidth:
                                       MediaQuery.of(context).size.width * 0.7,
-                                  onPressed: submitAnswer,
                                 ),
                               ],
                             ),
@@ -379,50 +515,54 @@ class _ToughLevelState extends State<ToughLevel> {
                             height: 180,
                             decoration: const BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/assets/images/dolphin.png'),
+                                image: AssetImage('assets/images/dolphin.png'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: SmallerFaIconButton(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return CustomDialog(
-                                    image: const AssetImage(
-                                        'assets/images/bulb.png'),
-                                    title: "Hint",
-                                    message:
-                                        toughQuestions[currentQuestionIndex]
-                                            .hint,
-                                    imageWidth: 80, // Example width
-                                    imageHeight: 120,
-                                    actionText: "Ok", // Specify the action text
-                                    onActionPressed: () {
-                                      // Define your action here
-                                      Navigator.pop(context);
-                                    },
-                                    showCustomRow:
-                                        false, // Set to false to hide the custom row
-                                    customText:
-                                        "Custom Text", // Pass any string you want to display in the custom row
-                                    closeIcon: FontAwesomeIcons
-                                        .xmark, // Specify the close icon
-                                    onClosePressed: (BuildContext context) {
-                                      Navigator.pop(
-                                          context); // Close the dialog
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                            iconData: FontAwesomeIcons.lightbulb,
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: SmallerFaIconButton(
+                              onTap: () {
+                                hintCount++;
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (BuildContext context) {
+                                    return CustomDialog(
+                                      image: const AssetImage(
+                                          'assets/images/bulb.png'),
+                                      title: "Hint",
+                                      message:
+                                          toughQuestions[currentQuestionIndex]
+                                              .hint,
+                                      imageWidth: 80, // Example width
+                                      imageHeight: 120,
+                                      actionText:
+                                          "Ok", // Specify the action text
+                                      onActionPressed: () {
+                                        // Define your action here
+                                        Navigator.pop(context);
+                                      },
+                                      showCustomRow:
+                                          false, // Set to false to hide the custom row
+                                      customText:
+                                          "Custom Text", // Pass any string you want to display in the custom row
+                                      closeIcon: FontAwesomeIcons
+                                          .xmark, // Specify the close icon
+                                      onClosePressed: (BuildContext context) {
+                                        Navigator.pop(
+                                            context); // Close the dialog
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                              iconData: FontAwesomeIcons.lightbulb,
+                            ),
                           ),
                         ),
                       ],

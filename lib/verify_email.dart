@@ -103,16 +103,15 @@ class VerifyEmailScreen extends StatelessWidget {
                             buttonText: "Verify email",
                             buttonWidth:
                                 MediaQuery.of(context).size.width * 0.7,
-                            onPressed: () => controller
-                                .checkEmailVerificationStatus(context),
+                            onPressed: () =>
+                                controller.checkEmailVerificationStatus(),
                           ),
                           const SizedBox(
                             height: 15,
                           ),
                           CustomGreenButton(
                             buttonText: 'Resend email',
-                            onTap: () =>
-                                controller.sendEmailVerification(context),
+                            onTap: () => controller.sendEmailVerification(),
                           ),
                         ],
                       ),

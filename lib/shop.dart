@@ -64,7 +64,6 @@ class _ShopState extends State<Shop> {
               .update({'coins': newTotalCoins});
 
           showCustomSnackBar(
-            context,
             Colors.green,
             FontAwesomeIcons.circleCheck,
             'Approved!',
@@ -73,7 +72,6 @@ class _ShopState extends State<Shop> {
         } catch (e) {
           print('Failed to update coins in Firestore: $e');
           showCustomSnackBar(
-            context,
             Colors.red,
             FontAwesomeIcons.circleExclamation,
             'Error!',
@@ -82,7 +80,6 @@ class _ShopState extends State<Shop> {
         }
       } else {
         showCustomSnackBar(
-          context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Approved!',

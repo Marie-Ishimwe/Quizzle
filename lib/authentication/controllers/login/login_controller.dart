@@ -36,7 +36,6 @@ class LoginController extends GetxController {
       }
     } on FirebaseAuthException catch (e) {
       showCustomSnackBar(
-        context,
         const Color(0xFFF88F1E),
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',
@@ -47,7 +46,6 @@ class LoginController extends GetxController {
     } catch (e) {
       // Handle exceptions
       showCustomSnackBar(
-        context,
         Colors.red,
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-Future<void> showCustomSnackBar(BuildContext context, Color bgColor,
-    IconData icon, String heading, String subheading) {
+// Step 1: Define a GlobalKey for ScaffoldMessenger
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
+Future<void> showCustomSnackBar(
+    Color bgColor, IconData icon, String heading, String subheading) {
   final snackBar = SnackBar(
     backgroundColor: bgColor,
     content: Row(
@@ -42,7 +46,8 @@ Future<void> showCustomSnackBar(BuildContext context, Color bgColor,
     ),
   );
 
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  // Step 3: Modify the function to use the global key
+  scaffoldMessengerKey.currentState?.showSnackBar(snackBar);
 
   // Return a Future that completes after a delay
   // Adjust the duration based on how long you want the snackbar to be shown

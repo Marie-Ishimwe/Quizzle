@@ -50,7 +50,6 @@ class SignUpController extends GetxController {
 
         // Show success message
         showCustomSnackBar(
-          context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Congratulations!',
@@ -61,14 +60,14 @@ class SignUpController extends GetxController {
         passwordController.clear();
         confirmPasswordController.clear();
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const VerifyEmailScreen()),
-        );
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const VerifyEmailScreen()),
+        // );
+        Get.to(() => const VerifyEmailScreen());
       }
     } on FirebaseAuthException catch (e) {
       showCustomSnackBar(
-        context,
         const Color(0xFFF88F1E),
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',
@@ -81,7 +80,6 @@ class SignUpController extends GetxController {
     } catch (e) {
       // Handle exceptions
       showCustomSnackBar(
-        context,
         Colors.red,
         FontAwesomeIcons.triangleExclamation,
         'Oh snap!',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Import the services library
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:quizzle/authentication_repository.dart';
@@ -11,6 +12,7 @@ import 'package:quizzle/start_screen.dart';
 import 'package:quizzle/utils/popups/loading_page.dart';
 import 'package:quizzle/verify_email.dart';
 import 'authentication/controllers/signup/signup_controller.dart';
+import 'snackbar.dart';
 import 'user_repository.dart';
 
 Future<void> _initializeApp() async {
@@ -31,7 +33,8 @@ Future<void> _initializeApp() async {
 
 Future main() async {
   // Ensure that the Flutter engine is initialized before using any services.
-  WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding =
+      WidgetsFlutterBinding.ensureInitialized();
 
   //Initialize hive
   await Hive.initFlutter();
@@ -43,6 +46,9 @@ Future main() async {
   // Open Hive boxes
   await Hive.openBox<UserData>('userDataBox');
   print("Hive Box opened.");
+
+  // Await Splash until items Load
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Await the initialization of Firebase and other services
   await _initializeApp();
@@ -60,6 +66,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      scaffoldMessengerKey: scaffoldMessengerKey,
       title: 'Quizzle',
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(

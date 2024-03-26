@@ -73,7 +73,6 @@ class _EasyLevelState extends State<EasyLevel> {
       if (userAnswer.toLowerCase().contains(correctAnswer)) {
         // Show correct message
         await showCustomSnackBar(
-          context,
           Colors.green,
           FontAwesomeIcons.circleCheck,
           'Correct!',
@@ -86,7 +85,6 @@ class _EasyLevelState extends State<EasyLevel> {
       } else {
         // Show incorrect message
         await showCustomSnackBar(
-          context,
           Colors.red,
           FontAwesomeIcons.circleXmark,
           'Incorrect!',
